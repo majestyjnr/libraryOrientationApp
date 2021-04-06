@@ -10,6 +10,7 @@ class Signup extends StatefulWidget {
 
 class _SignupState extends State<Signup> {
   bool obscured = true;
+  String dropdownValue = '100';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,8 +61,40 @@ class _SignupState extends State<Signup> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10,
+              Card(
+                elevation: 1.5,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: <Widget>[
+                      Text('Select Level:    '),
+                      Spacer(),
+                      DropdownButton<String>(
+                        value: dropdownValue,
+                        items: <String>[
+                          '100',
+                          '200',
+                          '300',
+                          '400',
+                          '500',
+                          '600'
+                        ].map<DropdownMenuItem<String>>(
+                          (String value) {
+                            return DropdownMenuItem(
+                              value: value,
+                              child: Text('Level $value'),
+                            );
+                          },
+                        ).toList(),
+                        onChanged: (String newLevel) {
+                          setState(() {
+                            dropdownValue = newLevel;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
               Card(
                 elevation: 1.5,
@@ -95,7 +128,6 @@ class _SignupState extends State<Signup> {
               SizedBox(
                 height: 30,
               ),
-              
               SizedBox(
                 width: double.infinity,
                 height: 50,
@@ -116,6 +148,9 @@ class _SignupState extends State<Signup> {
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ),
+              ),
+              SizedBox(
+                height: 20,
               ),
             ],
           ),

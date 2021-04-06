@@ -29,7 +29,7 @@ class _MainAuthState extends State<MainAuth> {
                 ),
               ),
               Container(
-                height: 550,
+                height: 530,
                 child: DefaultTabController(
                   length: 2,
                   child: Scaffold(
