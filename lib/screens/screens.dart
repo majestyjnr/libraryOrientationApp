@@ -13,4 +13,6 @@ export 'student/videoTabs/ReferenceSection.dart';
 export 'student/videoTabs/SecuritySection.dart';
 export 'student/videoTabs/SpecialReserveSection.dart';
 
-
+// Auth
+export 'student/auth/Signin.dart';
+export 'student/auth/Signup.dart';
