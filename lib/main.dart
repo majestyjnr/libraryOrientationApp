@@ -14,14 +14,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitDown,
+    ]);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
       statusBarBrightness: Brightness.light,
       // Platform.isAndroid ? Brightness.light : Brightness.light,
       systemNavigationBarColor: Colors.white,
       systemNavigationBarDividerColor: Colors.grey,
-      systemNavigationBarIconBrightness: Brightness.dark,  
+      systemNavigationBarIconBrightness: Brightness.dark,
     ));
     return MaterialApp(
       title: 'library O. App',
@@ -62,37 +66,37 @@ class _HomescreenState extends State<HomeScreen> {
         },
         items: [
           BottomNavigationBarItem(
-            icon:Icon(
-                    FontAwesomeIcons.video,
-                    size: 18,
-                  ),
+            icon: Icon(
+              FontAwesomeIcons.video,
+              size: 18,
+            ),
             title: Padding(
               padding: const EdgeInsets.only(
                 top: 3,
               ),
-              child:Text(
-                      'Videos',
-                      style: TextStyle(
-                        fontSize: 13,
-                      ),
-                    ),
+              child: Text(
+                'Videos',
+                style: TextStyle(
+                  fontSize: 13,
+                ),
+              ),
             ),
           ),
           BottomNavigationBarItem(
-            icon:Icon(
-                    FontAwesomeIcons.file,
-                    size: 18,
-                  ),
+            icon: Icon(
+              FontAwesomeIcons.file,
+              size: 18,
+            ),
             title: Padding(
               padding: const EdgeInsets.only(
                 top: 3,
               ),
-              child:Text(
-                      "Faq's",
-                      style: TextStyle(
-                        fontSize: 13,
-                      ),
-                    ),
+              child: Text(
+                "Faq's",
+                style: TextStyle(
+                  fontSize: 13,
+                ),
+              ),
             ),
           ),
           BottomNavigationBarItem(
@@ -117,4 +121,3 @@ class _HomescreenState extends State<HomeScreen> {
     );
   }
 }
-
