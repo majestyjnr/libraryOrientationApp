@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-class landingPage extends StatefulWidget {
-  landingPage({Key key}) : super(key: key);
+class LandingPage extends StatefulWidget {
+  LandingPage({Key key}) : super(key: key);
 
   @override
-  _landingPageState createState() => _landingPageState();
+  _LandingPageState createState() => _LandingPageState();
 }
 
-class _landingPageState extends State<landingPage> {
+class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
