@@ -42,7 +42,7 @@ class _MainAuthState extends State<MainAuth> {
                             color: Colors.blue, fontWeight: FontWeight.bold),
                       ),
                       backgroundColor: Colors.white,
-                      elevation: 0,
+                      elevation: 0.5,
                       bottom: TabBar(
                         indicatorColor: Colors.blue,
                         labelColor: Colors.black,
