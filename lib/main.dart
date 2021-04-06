@@ -30,7 +30,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomeScreen(title: 'Library App',) ,
+      home: MainAuth(),
+      // HomeScreen(title: 'Library App',)
     );
   }
 }

@@ -16,3 +16,5 @@ export 'student/videoTabs/SpecialReserveSection.dart';
 // Auth
 export 'student/auth/Signin.dart';
 export 'student/auth/Signup.dart';
+export 'student/auth/MainAuth.dart';
+
