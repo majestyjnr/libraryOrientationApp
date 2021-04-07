@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "991325740506",
+    "project_id": "libraryorientationapp",
+    "storage_bucket": "libraryorientationapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991325740506:android:0d776f781bd742e86874e3",
+        "android_client_info": {
+          "package_name": "com.majesty.LibraryOrientationApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "991325740506-id7mhgd34hi80kb9si4gskrq6smphri4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaAIEdIayIMq2kYMkw28PdVxetBywIaKI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "991325740506-id7mhgd34hi80kb9si4gskrq6smphri4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
