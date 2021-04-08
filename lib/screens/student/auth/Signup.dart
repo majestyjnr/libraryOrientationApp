@@ -13,6 +13,8 @@ class _SignupState extends State<Signup> {
   bool obscured = true;
   bool isLoading = false;
   String dropdownValue = '100';
+  TextEditingController _firstname = new TextEditingController();
+  TextEditingController _lastname = new TextEditingController();
   TextEditingController _email = new TextEditingController();
   TextEditingController _password = new TextEditingController();
 
@@ -30,6 +32,7 @@ class _SignupState extends State<Signup> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                     keyboardType: TextInputType.emailAddress,
+                    controller: _firstname,
                     decoration: InputDecoration(
                       hintText: 'Firstname',
                       border: InputBorder.none,
@@ -44,6 +47,7 @@ class _SignupState extends State<Signup> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                     keyboardType: TextInputType.emailAddress,
+                    controller: _lastname,
                     decoration: InputDecoration(
                       hintText: 'Lastname',
                       border: InputBorder.none,
@@ -153,7 +157,12 @@ class _SignupState extends State<Signup> {
                           .user;
 
                       if (user != null) {
-                        print('Created');
+                        UserUpdateInfo updateUser = UserUpdateInfo();
+                        updateUser.displayName =
+                            _firstname.text + ' ' + _lastname.text;
+
+                        user.updateProfile(updateUser);
+                        user.sendEmailVerification();
                       }
                     } catch (e) {
                       print(e);

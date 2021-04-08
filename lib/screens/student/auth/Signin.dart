@@ -105,14 +105,12 @@ class _SigninState extends State<Signin> {
                           .user;
 
                       if (user != null) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return HomeScreen();
-                            },
-                          ),
-                        );
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                          builder: (context) {
+                            return HomeScreen();
+                          },
+                        ), (Route<dynamic> route) => false);
                       }
                     } catch (e) {
                       print(e);
