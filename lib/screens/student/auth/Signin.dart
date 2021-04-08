@@ -2,6 +2,7 @@ import 'package:LibraryOrientationApp/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Signin extends StatefulWidget {
   Signin({Key key}) : super(key: key);
@@ -12,9 +13,37 @@ class Signin extends StatefulWidget {
 
 class _SigninState extends State<Signin> {
   bool obscured = true;
+  bool isLoading = false;
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();
-  bool isLoading = false;
+
+  _showDialog(BuildContext context) {
+    CupertinoAlertDialog alert = CupertinoAlertDialog(
+      title: Text('Error'),
+      content: Text('Invalid Email or Password'),
+      actions: <Widget>[
+        CupertinoDialogAction(
+          child: Text('Try Again'),
+          onPressed: () {
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                builder: (context) => Signin(),
+              ),
+              (Route<dynamic> route) => false,
+            );
+          },
+        ),
+      ],
+    );
+
+    return showCupertinoDialog(
+      context: context,
+      builder: (context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,6 +121,9 @@ class _SigninState extends State<Signin> {
                 child: FlatButton(
                   color: Colors.blue,
                   onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+
                     setState(() {
                       isLoading = true;
                     });
@@ -105,6 +137,15 @@ class _SigninState extends State<Signin> {
                           .user;
 
                       if (user != null) {
+                        await prefs.setString(
+                          'studentEmail',
+                          _emailController.text,
+                        );
+                        await prefs.setString(
+                          'studentPassword',
+                          _passwordController.text,
+                        );
+
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
                           builder: (context) {
@@ -117,6 +158,7 @@ class _SigninState extends State<Signin> {
                       setState(() {
                         isLoading = false;
                       });
+                      _showDialog(context);
                       _emailController.text = '';
                       _passwordController.text = '';
                     }

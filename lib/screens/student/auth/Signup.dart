@@ -1,6 +1,8 @@
+import 'package:LibraryOrientationApp/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Signup extends StatefulWidget {
   Signup({Key key}) : super(key: key);
@@ -145,6 +147,8 @@ class _SignupState extends State<Signup> {
                 child: FlatButton(
                   color: Colors.blue,
                   onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
                     setState(() {
                       isLoading = true;
                     });
@@ -162,7 +166,33 @@ class _SignupState extends State<Signup> {
                             _firstname.text + ' ' + _lastname.text;
 
                         user.updateProfile(updateUser);
-                        user.sendEmailVerification();
+                        await prefs.setString(
+                          'studentLevel',
+                          dropdownValue,
+                        );
+                        await prefs.setString(
+                          'studentName',
+                          _firstname.text + ' ' + _lastname.text,
+                        );
+                        await prefs.setString(
+                          'studentEmail',
+                          _email.text,
+                        );
+                        await prefs.setString(
+                          'studentPassword',
+                          _password.text,
+                        );
+
+                        user.sendEmailVerification().then((value) {
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                            builder: (context) {
+                              return HomeScreen();
+                            },
+                          ), (Route<dynamic> route) => false);
+                        }).catchError((onError) {
+                          print(onError);
+                        });
                       }
                     } catch (e) {
                       print(e);
@@ -172,15 +202,6 @@ class _SignupState extends State<Signup> {
                       _email.text = '';
                       _password.text = '';
                     }
-
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) {
-                    //       return HomeScreen(title: 'Library App');
-                    //     },
-                    //   ),
-                    // );
                   },
                   child: isLoading
                       ? CupertinoActivityIndicator()
