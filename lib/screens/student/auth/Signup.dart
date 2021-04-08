@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Signup extends StatefulWidget {
@@ -10,6 +11,7 @@ class Signup extends StatefulWidget {
 
 class _SignupState extends State<Signup> {
   bool obscured = true;
+  bool isLoading = false;
   String dropdownValue = '100';
   TextEditingController _email = new TextEditingController();
   TextEditingController _password = new TextEditingController();
@@ -139,18 +141,25 @@ class _SignupState extends State<Signup> {
                 child: FlatButton(
                   color: Colors.blue,
                   onPressed: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
                     try {
                       FirebaseUser user = (await FirebaseAuth.instance
-                          .createUserWithEmailAndPassword(
+                              .createUserWithEmailAndPassword(
                         email: _email.text,
                         password: _password.text,
-                      )).user;
+                      ))
+                          .user;
 
                       if (user != null) {
                         print('Created');
                       }
                     } catch (e) {
                       print(e);
+                      setState(() {
+                        isLoading = false;
+                      });
                       _email.text = '';
                       _password.text = '';
                     }
@@ -164,10 +173,15 @@ class _SignupState extends State<Signup> {
                     //   ),
                     // );
                   },
-                  child: Text(
-                    'Signup',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
-                  ),
+                  child: isLoading
+                      ? CupertinoActivityIndicator()
+                      : Text(
+                          'Signup',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
                 ),
               ),
               SizedBox(

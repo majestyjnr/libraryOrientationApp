@@ -29,6 +29,7 @@ class _SigninState extends State<Signin> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                     keyboardType: TextInputType.emailAddress,
+                    controller: _emailController,
                     decoration: InputDecoration(
                       hintText: 'Email',
                       border: InputBorder.none,
@@ -46,6 +47,7 @@ class _SigninState extends State<Signin> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                     keyboardType: TextInputType.text,
+                    controller: _passwordController,
                     obscureText: obscured,
                     decoration: InputDecoration(
                       border: InputBorder.none,
@@ -74,7 +76,10 @@ class _SigninState extends State<Signin> {
                   Spacer(),
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
-                    child: Text('Forgot Password?'),
+                    child: FlatButton(
+                      child: Text('Forgot Password?'),
+                      onPressed: () {},
+                    ),
                   )
                 ],
               ),
@@ -90,22 +95,32 @@ class _SigninState extends State<Signin> {
                     setState(() {
                       isLoading = true;
                     });
-                    FirebaseUser user =
-                        (await FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: _emailController.text,
-                      password: _passwordController.text,
-                    ))
-                            .user;
 
-                    if (user != null) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return HomeScreen();
-                          },
-                        ),
-                      );
+                    try {
+                      FirebaseUser user = (await FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
+                        email: _emailController.text,
+                        password: _passwordController.text,
+                      ))
+                          .user;
+
+                      if (user != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return HomeScreen();
+                            },
+                          ),
+                        );
+                      }
+                    } catch (e) {
+                      print(e);
+                      setState(() {
+                        isLoading = false;
+                      });
+                      _emailController.text = '';
+                      _passwordController.text = '';
                     }
                   },
                   child: isLoading
