@@ -1,4 +1,5 @@
 import 'package:LibraryOrientationApp/main.dart';
+import 'package:LibraryOrientationApp/screens/screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -107,7 +108,14 @@ class _SigninState extends State<Signin> {
                     padding: const EdgeInsets.only(top: 10),
                     child: FlatButton(
                       child: Text('Forgot Password?'),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) {
+                            return ForgotPassword();
+                          }),
+                        );
+                      },
                     ),
                   )
                 ],

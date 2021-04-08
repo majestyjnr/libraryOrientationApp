@@ -17,4 +17,6 @@ export 'student/videoTabs/SpecialReserveSection.dart';
 export 'student/auth/Signin.dart';
 export 'student/auth/Signup.dart';
 export 'student/auth/MainAuth.dart';
+export 'student/auth/ForgotPassword.dart';
+
 

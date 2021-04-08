@@ -166,6 +166,7 @@ class _SignupState extends State<Signup> {
                             _firstname.text + ' ' + _lastname.text;
 
                         user.updateProfile(updateUser);
+                        
                         await prefs.setString(
                           'studentLevel',
                           dropdownValue,
