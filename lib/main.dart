@@ -40,8 +40,6 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key, this.title}) : super(key: key);
-  final String title;
   @override
   _HomescreenState createState() => _HomescreenState();
 }

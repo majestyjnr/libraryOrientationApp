@@ -1,4 +1,4 @@
-import 'package:LibraryOrientationApp/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Signup extends StatefulWidget {
@@ -11,6 +11,9 @@ class Signup extends StatefulWidget {
 class _SignupState extends State<Signup> {
   bool obscured = true;
   String dropdownValue = '100';
+  TextEditingController _email = new TextEditingController();
+  TextEditingController _password = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,6 +56,7 @@ class _SignupState extends State<Signup> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                     keyboardType: TextInputType.emailAddress,
+                    controller: _email,
                     decoration: InputDecoration(
                       hintText: 'Email',
                       border: InputBorder.none,
@@ -103,6 +107,7 @@ class _SignupState extends State<Signup> {
                   child: TextField(
                     keyboardType: TextInputType.text,
                     obscureText: obscured,
+                    controller: _password,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Password',
@@ -133,15 +138,31 @@ class _SignupState extends State<Signup> {
                 height: 50,
                 child: FlatButton(
                   color: Colors.blue,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return HomeScreen(title: 'Library App');
-                        },
-                      ),
-                    );
+                  onPressed: () async {
+                    try {
+                      FirebaseUser user = (await FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
+                        email: _email.text,
+                        password: _password.text,
+                      )).user;
+
+                      if (user != null) {
+                        print('Created');
+                      }
+                    } catch (e) {
+                      print(e);
+                      _email.text = '';
+                      _password.text = '';
+                    }
+
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) {
+                    //       return HomeScreen(title: 'Library App');
+                    //     },
+                    //   ),
+                    // );
                   },
                   child: Text(
                     'Signup',

@@ -1,4 +1,6 @@
 import 'package:LibraryOrientationApp/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Signin extends StatefulWidget {
@@ -10,6 +12,9 @@ class Signin extends StatefulWidget {
 
 class _SigninState extends State<Signin> {
   bool obscured = true;
+  TextEditingController _emailController = new TextEditingController();
+  TextEditingController _passwordController = new TextEditingController();
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,20 +86,37 @@ class _SigninState extends State<Signin> {
                 height: 50,
                 child: FlatButton(
                   color: Colors.blue,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return HomeScreen(title: 'Library App');
-                        },
-                      ),
-                    );
+                  onPressed: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    FirebaseUser user =
+                        (await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                    ))
+                            .user;
+
+                    if (user != null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return HomeScreen();
+                          },
+                        ),
+                      );
+                    }
                   },
-                  child: Text(
-                    'Signin',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
-                  ),
+                  child: isLoading
+                      ? CupertinoActivityIndicator()
+                      : Text(
+                          'Signin',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
                 ),
               ),
             ],
