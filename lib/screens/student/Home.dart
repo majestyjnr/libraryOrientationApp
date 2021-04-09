@@ -72,6 +72,7 @@ class _HomeState extends State<Home> {
                     fontSize: 20,
                   ),
                 ),
+                iconTheme: IconThemeData(color: Colors.blue),
                 actions: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(10),

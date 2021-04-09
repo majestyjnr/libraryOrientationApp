@@ -28,7 +28,7 @@ class _SigninState extends State<Signin> {
           onPressed: () {
             Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
-                builder: (context) => Signin(),
+                builder: (context) => MainAuth(),
               ),
               (Route<dynamic> route) => false,
             );
