@@ -14,6 +14,7 @@ class _RecoveryEmailSentState extends State<RecoveryEmailSent> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.5,
         leading: IconButton(
             icon: Icon(
               CupertinoIcons.back,
@@ -35,11 +36,14 @@ class _RecoveryEmailSentState extends State<RecoveryEmailSent> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Email Sent',
+              'Email Sent. Kindly check your inbox and reset your password',
               style: TextStyle(
                 color: Colors.blue,
                 fontSize: 20,
               ),
+            ),
+            SizedBox(
+              height: 20,
             ),
             SizedBox(
               width: double.infinity,

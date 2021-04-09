@@ -25,6 +25,7 @@ dependencies:
     sdk: flutter
   firebase_auth: ^0.16.1
   shared_preferences: ^0.5.10
+  youtube_player_flutter:
   # cloud_firestore: ^0.16.0+1
   # ^0.5.20
 

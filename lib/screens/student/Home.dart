@@ -17,15 +17,54 @@ class _HomeState extends State<Home> {
       initialIndex: 0,
       length: 8,
       child: Scaffold(
+        drawer: Drawer(
+          child: ListView(
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/uew.png'),
+                  ),
+                ),
+                child: Text(
+                  '',
+                ),
+              ),
+              ListTile(
+                title: Text('About The App'),
+                leading: Icon(
+                  CupertinoIcons.news,
+                  color: Colors.red,
+                ),
+                onTap: () {
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  //   return AboutMethodist();
+                  // }));
+                },
+              ),
+              Divider(
+                height: 0,
+              ),
+              ListTile(
+                title: Text('About The Developers'),
+                leading: Icon(
+                  CupertinoIcons.news,
+                  color: Colors.red,
+                ),
+                onTap: () {
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  //   return AboutMethodist();
+                  // }));
+                },
+              ),
+            ],
+          ),
+        ),
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverAppBar(
                 brightness: Brightness.light,
-                leading: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Image(image: AssetImage('assets/images/uew.png')),
-                ),
                 title: Text(
                   'Library Orientation App',
                   style: TextStyle(
@@ -34,7 +73,10 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 actions: <Widget>[
-                  IconButton(icon: Icon(CupertinoIcons.search, color: Colors.blue,), onPressed: (){})
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Image(image: AssetImage('assets/images/uew.png')),
+                  ),
                 ],
                 pinned: true,
                 floating: true,

@@ -1,4 +1,4 @@
-import 'package:LibraryOrientationApp/screens/screens.dart';
+import 'package:LibraryOrientationApp/screens/student/auth/RecoveryEmailSent.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +82,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           (value) => Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(
                             builder: (context) {
-                              return MainAuth();
+                              return RecoveryEmailSent();
                             },
                           ), (Route<dynamic> route) => false),
                         )
