@@ -13,6 +13,7 @@ class _RecoveryEmailSentState extends State<RecoveryEmailSent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0.5,
         leading: IconButton(

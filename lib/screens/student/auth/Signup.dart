@@ -25,6 +25,7 @@ class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(15),
@@ -71,6 +72,38 @@ class _SignupState extends State<Signup> {
                       hintText: 'Email',
                       border: InputBorder.none,
                       prefixIcon: Icon(Icons.mail),
+                    ),
+                  ),
+                ),
+              ),
+              Card(
+                elevation: 1.5,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    keyboardType: TextInputType.numberWithOptions(),
+                    controller: _email,
+                    decoration: InputDecoration(
+                      hintText: 'Phone',
+                      border: InputBorder.none,
+                      prefixIcon: Icon(
+                        Icons.phone_iphone,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Card(
+                elevation: 1.5,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    keyboardType: TextInputType.text,
+                    controller: _email,
+                    decoration: InputDecoration(
+                      hintText: 'Department',
+                      border: InputBorder.none,
+                      prefixIcon: Icon(Icons.school),
                     ),
                   ),
                 ),
