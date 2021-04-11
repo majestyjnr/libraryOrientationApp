@@ -96,7 +96,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         '$e',
                         context,
                         duration: Toast.LENGTH_LONG,
-                        backgroundColor: Colors.blue,
                         gravity: Toast.BOTTOM,
                       );
                       setState(() {

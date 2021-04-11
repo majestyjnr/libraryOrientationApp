@@ -168,7 +168,6 @@ class _SigninState extends State<Signin> {
                         '$e',
                         context,
                         duration: Toast.LENGTH_LONG,
-                        backgroundColor: Colors.blue,
                         gravity: Toast.BOTTOM,
                       );
                       print(e);
