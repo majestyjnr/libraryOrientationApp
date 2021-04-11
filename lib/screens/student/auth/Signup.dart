@@ -2,7 +2,9 @@ import 'package:LibraryOrientationApp/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toast/toast.dart';
 
 class Signup extends StatefulWidget {
   Signup({Key key}) : super(key: key);
@@ -166,7 +168,7 @@ class _SignupState extends State<Signup> {
                             _firstname.text + ' ' + _lastname.text;
 
                         user.updateProfile(updateUser);
-                        
+
                         await prefs.setString(
                           'studentLevel',
                           dropdownValue,
@@ -197,6 +199,12 @@ class _SignupState extends State<Signup> {
                       }
                     } catch (e) {
                       print(e);
+                      Toast.show(
+                        e,
+                        context,
+                        duration: Toast.LENGTH_LONG,
+                        gravity: Toast.BOTTOM,
+                      );
                       setState(() {
                         isLoading = false;
                       });
@@ -205,7 +213,9 @@ class _SignupState extends State<Signup> {
                     }
                   },
                   child: isLoading
-                      ? CupertinoActivityIndicator()
+                      ? NutsActivityIndicator(
+                          activeColor: Colors.white,
+                        )
                       : Text(
                           'Signup',
                           style: TextStyle(

@@ -3,7 +3,9 @@ import 'package:LibraryOrientationApp/screens/screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toast/toast.dart';
 
 class Signin extends StatefulWidget {
   Signin({Key key}) : super(key: key);
@@ -162,6 +164,12 @@ class _SigninState extends State<Signin> {
                         ), (Route<dynamic> route) => false);
                       }
                     } catch (e) {
+                      Toast.show(
+                        e,
+                        context,
+                        duration: Toast.LENGTH_LONG,
+                        gravity: Toast.BOTTOM,
+                      );
                       print(e);
                       setState(() {
                         isLoading = false;
@@ -172,7 +180,9 @@ class _SigninState extends State<Signin> {
                     }
                   },
                   child: isLoading
-                      ? CupertinoActivityIndicator()
+                      ? NutsActivityIndicator(
+                          activeColor: Colors.white,
+                        )
                       : Text(
                           'Signin',
                           style: TextStyle(
