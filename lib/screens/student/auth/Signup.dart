@@ -200,9 +200,10 @@ class _SignupState extends State<Signup> {
                     } catch (e) {
                       print(e);
                       Toast.show(
-                        e,
+                        '$e',
                         context,
                         duration: Toast.LENGTH_LONG,
+                        backgroundColor: Colors.blue,
                         gravity: Toast.BOTTOM,
                       );
                       setState(() {

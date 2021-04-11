@@ -2,6 +2,8 @@ import 'package:LibraryOrientationApp/screens/student/auth/RecoveryEmailSent.dar
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
+import 'package:toast/toast.dart';
 
 class ForgotPassword extends StatefulWidget {
   ForgotPassword({Key key}) : super(key: key);
@@ -17,6 +19,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
             icon: Icon(
@@ -76,24 +79,35 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     setState(() {
                       isLoading = true;
                     });
-                    await FirebaseAuth.instance
-                        .sendPasswordResetEmail(email: _emailController.text)
-                        .then(
-                          (value) => Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                            builder: (context) {
-                              return RecoveryEmailSent();
-                            },
-                          ), (Route<dynamic> route) => false),
-                        )
-                        .catchError((onError) {
+
+                    try {
+                      await FirebaseAuth.instance
+                          .sendPasswordResetEmail(email: _emailController.text)
+                          .then(
+                            (value) => Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                              builder: (context) {
+                                return RecoveryEmailSent();
+                              },
+                            ), (Route<dynamic> route) => false),
+                          );
+                    } catch (e) {
+                      Toast.show(
+                        '$e',
+                        context,
+                        duration: Toast.LENGTH_LONG,
+                        backgroundColor: Colors.blue,
+                        gravity: Toast.BOTTOM,
+                      );
                       setState(() {
                         isLoading = false;
                       });
-                    });
+                    }
                   },
                   child: isLoading
-                      ? CupertinoActivityIndicator()
+                      ? NutsActivityIndicator(
+                          activeColor: Colors.white,
+                        )
                       : Text(
                           'Submit',
                           style: TextStyle(
