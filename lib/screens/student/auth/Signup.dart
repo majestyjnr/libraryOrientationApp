@@ -197,6 +197,7 @@ class _SignupState extends State<Signup> {
                       );
 
                       if (user != null) {
+                        
                         // UserCredential updateUser = UserUpdateInfo();
                         // updateUser.displayName =
                         //     _firstname.text + ' ' + _lastname.text;
