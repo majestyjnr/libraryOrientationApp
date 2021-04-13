@@ -198,8 +198,11 @@ class _SignupState extends State<Signup> {
                       );
 
                       if (user != null) {
+                        // Get The Current User
                         User userCurrent = FirebaseAuth.instance.currentUser;
-                        await FirebaseFirestore.instance
+
+                        // Save the user details into the database
+                        FirebaseFirestore.instance
                             .collection('users')
                             .doc(userCurrent.uid)
                             .set({
@@ -210,11 +213,9 @@ class _SignupState extends State<Signup> {
                           'department': _department.text,
                           'level': 'Level $dropdownValue'
                         });
-                        // UserCredential updateUser = UserUpdateInfo();
                         // updateUser.displayName =
                         //     _firstname.text + ' ' + _lastname.text;
                         // user.updateProfile(updateUser);
-
 
                         await prefs.setString(
                           'studentLevel',
