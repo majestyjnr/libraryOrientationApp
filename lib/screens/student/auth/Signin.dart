@@ -140,12 +140,11 @@ class _SigninState extends State<Signin> {
                     });
 
                     try {
-                      FirebaseUser user = (await FirebaseAuth.instance
-                              .signInWithEmailAndPassword(
+                      UserCredential user = await FirebaseAuth.instance
+                          .signInWithEmailAndPassword(
                         email: _emailController.text,
                         password: _passwordController.text,
-                      ))
-                          .user;
+                      );
 
                       if (user != null) {
                         await prefs.setString(

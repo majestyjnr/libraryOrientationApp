@@ -36,6 +36,14 @@ class _RecoveryEmailSentState extends State<RecoveryEmailSent> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Icon(
+              CupertinoIcons.check_mark_circled,
+              size: 45,
+              color: Colors.white,
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Text(
               'Email Sent. Kindly check your inbox and reset your password',
               style: TextStyle(

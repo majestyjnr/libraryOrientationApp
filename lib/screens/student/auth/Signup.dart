@@ -20,6 +20,8 @@ class _SignupState extends State<Signup> {
   TextEditingController _firstname = new TextEditingController();
   TextEditingController _lastname = new TextEditingController();
   TextEditingController _email = new TextEditingController();
+  TextEditingController _department = new TextEditingController();
+  TextEditingController _phone = new TextEditingController();
   TextEditingController _password = new TextEditingController();
 
   @override
@@ -82,7 +84,7 @@ class _SignupState extends State<Signup> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                     keyboardType: TextInputType.numberWithOptions(),
-                    controller: _email,
+                    controller: _phone,
                     decoration: InputDecoration(
                       hintText: 'Phone',
                       border: InputBorder.none,
@@ -99,7 +101,7 @@ class _SignupState extends State<Signup> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                     keyboardType: TextInputType.text,
-                    controller: _email,
+                    controller: _department,
                     decoration: InputDecoration(
                       hintText: 'Department',
                       border: InputBorder.none,
@@ -188,19 +190,19 @@ class _SignupState extends State<Signup> {
                       isLoading = true;
                     });
                     try {
-                      FirebaseUser user = (await FirebaseAuth.instance
-                              .createUserWithEmailAndPassword(
+                      UserCredential user = await FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
                         email: _email.text,
                         password: _password.text,
-                      ))
-                          .user;
+                      );
 
                       if (user != null) {
-                        UserUpdateInfo updateUser = UserUpdateInfo();
-                        updateUser.displayName =
-                            _firstname.text + ' ' + _lastname.text;
+                        // UserCredential updateUser = UserUpdateInfo();
+                        // updateUser.displayName =
+                        //     _firstname.text + ' ' + _lastname.text;
+                        // user.updateProfile(updateUser);
 
-                        user.updateProfile(updateUser);
+                        // await
 
                         await prefs.setString(
                           'studentLevel',
@@ -219,7 +221,8 @@ class _SignupState extends State<Signup> {
                           _password.text,
                         );
 
-                        user.sendEmailVerification().then((value) {
+                        User signInUser = FirebaseAuth.instance.currentUser;
+                        signInUser.sendEmailVerification().then((value) {
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(
                             builder: (context) {
@@ -230,7 +233,7 @@ class _SignupState extends State<Signup> {
                           print(onError);
                         });
                       }
-                    } catch (e) {
+                    } on FirebaseAuthException catch (e) {
                       print(e);
                       Toast.show(
                         '$e',
