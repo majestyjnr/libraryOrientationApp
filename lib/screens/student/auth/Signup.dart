@@ -1,4 +1,5 @@
 import 'package:LibraryOrientationApp/main.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -197,13 +198,23 @@ class _SignupState extends State<Signup> {
                       );
 
                       if (user != null) {
-                        
+                        User userCurrent = FirebaseAuth.instance.currentUser;
+                        await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(userCurrent.uid)
+                            .set({
+                          'firstName': _firstname.text,
+                          'lastName': _lastname.text,
+                          'email': _email.text,
+                          'phone': _phone.text,
+                          'department': _department.text,
+                          'level': 'Level $dropdownValue'
+                        });
                         // UserCredential updateUser = UserUpdateInfo();
                         // updateUser.displayName =
                         //     _firstname.text + ' ' + _lastname.text;
                         // user.updateProfile(updateUser);
 
-                        // await
 
                         await prefs.setString(
                           'studentLevel',
