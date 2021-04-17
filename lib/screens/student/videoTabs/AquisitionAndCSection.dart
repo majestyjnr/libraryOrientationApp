@@ -12,7 +12,10 @@ class AcquisitionSection extends StatefulWidget {
 }
 
 class _AcquisitionSectionState extends State<AcquisitionSection> {
-  FlickManager flickManager;
+  FlickManager flickManager = FlickManager(
+    videoPlayerController: VideoPlayerController.network(
+        'https://firebasestorage.googleapis.com/v0/b/libraryorientationapp.appspot.com/o/videos%2F2fa6f440-9ed7-11eb-86c6-7928581c3d51?alt=media&token=8954fabf-71fd-4efa-80b2-3eba2b6a0f50'),
+  );
   var _videoURL;
   @override
   void initState() {
@@ -33,18 +36,13 @@ class _AcquisitionSectionState extends State<AcquisitionSection> {
       });
     });
     print('done');
-
-    flickManager = FlickManager(
-      videoPlayerController: VideoPlayerController.network(
-          'https://firebasestorage.googleapis.com/v0/b/libraryorientationapp.appspot.com/o/videos%2F2fa6f440-9ed7-11eb-86c6-7928581c3d51?alt=media&token=8954fabf-71fd-4efa-80b2-3eba2b6a0f50'),
-    );
   }
 
-  @override
-  void dispose() {
-    flickManager.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   flickManager.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
