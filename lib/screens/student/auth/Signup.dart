@@ -211,7 +211,8 @@ class _SignupState extends State<Signup> {
                           'email': _email.text,
                           'phone': _phone.text,
                           'department': _department.text,
-                          'level': 'Level $dropdownValue'
+                          'level': 'Level $dropdownValue',
+                          'role': 'User'
                         });
                         // updateUser.displayName =
                         //     _firstname.text + ' ' + _lastname.text;
