@@ -30,6 +30,8 @@ dependencies:
   nuts_activity_indicator:
   toast: ^0.1.5
   cloud_firestore: ^1.0.4
+  flick_video_player: ^0.2.0
+  video_player:
   # cloud_firestore: ^0.16.0+1
   # ^0.5.20
 
