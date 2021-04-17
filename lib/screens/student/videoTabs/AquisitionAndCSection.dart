@@ -17,15 +17,21 @@ class _AcquisitionSectionState extends State<AcquisitionSection> {
   @override
   void initState() {
     super.initState();
-    FirebaseFirestore.instance.collection('Videos Info').get().then((snapshot) {
+    FirebaseFirestore.instance
+        .collection('Videos Info')
+        // .where('videoSection', isEqualTo: 'Acquisition Section')
+        .get()
+        .then((snapshot) {
       snapshot.docs.forEach((doc) {
-        print(doc['videoURL']);
+        setState(() {
+          _videoURL = doc['videoURL'];
+        });
       });
     });
 
-    // flickManager = FlickManager(
-    //   videoPlayerController: VideoPlayerController.network(_videoURL),
-    // );
+    flickManager = FlickManager(
+      videoPlayerController: VideoPlayerController.network(_videoURL),
+    );
   }
 
   @override
