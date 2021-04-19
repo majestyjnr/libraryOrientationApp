@@ -12,25 +12,25 @@ class AcquisitionSection extends StatefulWidget {
 }
 
 class _AcquisitionSectionState extends State<AcquisitionSection> {
-  FlickManager flickManager = FlickManager(
-    videoPlayerController: VideoPlayerController.network(
-        'https://firebasestorage.googleapis.com/v0/b/libraryorientationapp.appspot.com/o/videos%2F2fa6f440-9ed7-11eb-86c6-7928581c3d51?alt=media&token=8954fabf-71fd-4efa-80b2-3eba2b6a0f50'),
-  );
-  var _videoURL;
+  FlickManager flickManager;
+  String _videoURL;
+  String _videoDescription;
   @override
   void initState() {
     super.initState();
     FirebaseFirestore.instance
         .collection('Videos Info')
-        // .where('videoSection', isEqualTo: 'Acquisition Section')
+        .where('videoSection', isEqualTo: 'Acquisition Section')
         .get()
         .then((snapshot) {
       snapshot.docs.forEach((doc) {
-        print(doc);
-
         setState(() {
           _videoURL = doc['videoURL'];
+          _videoDescription = doc['videoDescription'];
         });
+        flickManager = FlickManager(
+          videoPlayerController: VideoPlayerController.network('$_videoURL'),
+        );
         print(_videoURL);
         print('done');
       });
@@ -38,11 +38,11 @@ class _AcquisitionSectionState extends State<AcquisitionSection> {
     print('done');
   }
 
-  // @override
-  // void dispose() {
-  //   flickManager.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    flickManager.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +52,16 @@ class _AcquisitionSectionState extends State<AcquisitionSection> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           (_videoURL != null)
-              ? FlickVideoPlayer(
-                  flickManager: flickManager,
+              ? Container(
+                  child: FlickVideoPlayer(
+                    flickManager: flickManager,
+                    flickVideoWithControls: FlickVideoWithControls(
+                      controls: FlickPortraitControls(),
+                    ),
+                    flickVideoWithControlsFullscreen: FlickVideoWithControls(
+                      controls: FlickLandscapeControls(),
+                    ),
+                  ),
                 )
               : Text(
                   'Loading...',
@@ -62,6 +70,20 @@ class _AcquisitionSectionState extends State<AcquisitionSection> {
                     color: Colors.blue,
                   ),
                 ),
+          SizedBox(
+            height: 10,
+          ),
+          Divider(
+            height: 0,
+          ),
+          (_videoDescription != null)
+              ? Text(
+                  _videoDescription,
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                )
+              : Container(),
         ],
       ),
     );
