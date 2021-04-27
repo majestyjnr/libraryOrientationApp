@@ -76,6 +76,9 @@ class _AcquisitionSectionState extends State<AcquisitionSection> {
           Divider(
             height: 0,
           ),
+          SizedBox(
+            height: 20,
+          ),
           (_videoDescription != null)
               ? Text(
                   _videoDescription,
