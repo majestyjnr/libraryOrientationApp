@@ -101,6 +101,7 @@ class _FAQSState extends State<FAQS> {
                 padding: const EdgeInsets.all(10),
                 child: Container(
                   decoration: BoxDecoration(
+                    color: Colors.blue,
                     borderRadius: BorderRadius.all(
                       Radius.circular(15),
                     ),
@@ -110,7 +111,7 @@ class _FAQSState extends State<FAQS> {
                       Text(
                         snapshot.data.docs[index]['faqQuestion'],
                         style: TextStyle(
-                          color: Colors.blue,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -119,6 +120,9 @@ class _FAQSState extends State<FAQS> {
                       ),
                       Text(
                         snapshot.data.docs[index]['faqAnswer'],
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
                     ],
                   ),
