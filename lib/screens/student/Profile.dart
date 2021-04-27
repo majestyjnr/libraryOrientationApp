@@ -108,8 +108,8 @@ class _ProfileState extends State<Profile> {
                     onTap: () {
                       // Open Edit Profile
                     },
-                    title: Text(_studentName),
-                    subtitle: Text(_studentEmail),
+                    title: Text('_studentName'),
+                    subtitle: Text('_studentEmail'),
                     trailing: CircleAvatar(
                       backgroundColor: Colors.grey,
                       child: Image(
