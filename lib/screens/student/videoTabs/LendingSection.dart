@@ -30,11 +30,8 @@ class _LendingSectionState extends State<LendingSection> {
         flickManager = FlickManager(
           videoPlayerController: VideoPlayerController.network('$_videoURL'),
         );
-        print(_videoURL);
-        print('done');
       });
     });
-    print('done');
   }
 
   @override

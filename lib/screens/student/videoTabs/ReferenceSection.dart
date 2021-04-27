@@ -31,11 +31,8 @@ class _ReferenceSectionState extends State<ReferenceSection> {
         flickManager = FlickManager(
           videoPlayerController: VideoPlayerController.network('$_videoURL'),
         );
-        print(_videoURL);
-        print('done');
       });
     });
-    print('done');
   }
 
   @override

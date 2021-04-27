@@ -30,11 +30,8 @@ class _QuickReferenceSectionState extends State<QuickReferenceSection> {
         flickManager = FlickManager(
           videoPlayerController: VideoPlayerController.network('$_videoURL'),
         );
-        print(_videoURL);
-        print('done');
       });
     });
-    print('done');
   }
 
   @override

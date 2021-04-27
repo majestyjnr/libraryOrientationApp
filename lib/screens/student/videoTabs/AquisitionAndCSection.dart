@@ -31,11 +31,8 @@ class _AcquisitionSectionState extends State<AcquisitionSection> {
         flickManager = FlickManager(
           videoPlayerController: VideoPlayerController.network('$_videoURL'),
         );
-        print(_videoURL);
-        print('done');
       });
     });
-    print('done');
   }
 
   @override

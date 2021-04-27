@@ -32,11 +32,8 @@ class _InformationHelpDeskSectionState
         flickManager = FlickManager(
           videoPlayerController: VideoPlayerController.network('$_videoURL'),
         );
-        print(_videoURL);
-        print('done');
       });
     });
-    print('done');
   }
 
   @override
