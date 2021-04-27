@@ -94,17 +94,50 @@ class _FAQSState extends State<FAQS> {
               ],
             );
           }
-          return SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Container(
-              child: Text('Yes'),
-            ),
+          return ListView.builder(
+            itemCount: snapshot.data.docs.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(10),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        snapshot.data.docs[index]['faqQuestion'],
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        snapshot.data.docs[index]['faqAnswer'],
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
           );
         },
       ),
     );
   }
 }
+
+// return SingleChildScrollView(
+//             physics: BouncingScrollPhysics(),
+//             child: Container(
+//               child: Text('Yes'),
+//             ),
+//           );
 
 // class Faq {
 //   String expandedValue;
