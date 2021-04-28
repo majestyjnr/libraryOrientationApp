@@ -2,6 +2,7 @@
 export 'student/Home.dart';
 export 'student/Profile.dart';
 export 'student/faqs/Faqs.dart';
+export 'student/faqs/AskQuestion.dart';
 
 // Videos
 export 'student/videoTabs/AquisitionAndCSection.dart';
@@ -18,5 +19,3 @@ export 'student/auth/Signin.dart';
 export 'student/auth/Signup.dart';
 export 'student/auth/MainAuth.dart';
 export 'student/auth/ForgotPassword.dart';
-
-

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:expansion_card/expansion_card.dart';
 import 'package:flutter/material.dart';
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 
@@ -98,41 +99,27 @@ class _FAQSState extends State<FAQS> {
           return ListView.builder(
             itemCount: snapshot.data.docs.length,
             itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(13),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(15),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Column(
-                      children: [
-                        Text(
-                          snapshot.data.docs[index]['faqQuestion'],
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          snapshot.data.docs[index]['faqAnswer'],
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
+              return ExpansionCard(
+                backgroundColor: Colors.blue,
+                borderRadius: 30,
+                title: Text(
+                  snapshot.data.docs[index]['faqQuestion'],
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
                   ),
                 ),
+                leading: Text(index.toString()),
+                children: [
+                  Text(
+                    snapshot.data.docs[index]['faqAnswer'],
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
               );
             },
           );
@@ -141,6 +128,43 @@ class _FAQSState extends State<FAQS> {
     );
   }
 }
+
+// Padding(
+//                 padding: const EdgeInsets.all(13),
+//                 child: Container(
+//                   decoration: BoxDecoration(
+//                     color: Colors.blue,
+//                     borderRadius: BorderRadius.all(
+//                       Radius.circular(15),
+//                     ),
+//                   ),
+//                   child: Padding(
+//                     padding: const EdgeInsets.all(15),
+//                     child: Column(
+//                       children: [
+//                         Text(
+//                           snapshot.data.docs[index]['faqQuestion'],
+//                           style: TextStyle(
+//                             color: Colors.white,
+//                             fontWeight: FontWeight.bold,
+//                             fontSize: 17,
+//                           ),
+//                         ),
+//                         SizedBox(
+//                           height: 15,
+//                         ),
+//                         Text(
+//                           snapshot.data.docs[index]['faqAnswer'],
+//                           style: TextStyle(
+//                             color: Colors.white,
+//                             fontSize: 16,
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//               );
 
 // return SingleChildScrollView(
 //             physics: BouncingScrollPhysics(),
