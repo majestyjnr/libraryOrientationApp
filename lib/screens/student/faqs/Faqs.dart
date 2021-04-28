@@ -1,3 +1,4 @@
+import 'package:LibraryOrientationApp/screens/screens.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expansion_card/expansion_card.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class _FAQSState extends State<FAQS> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       appBar: AppBar(
         brightness: Brightness.light,
         elevation: 0.5,
@@ -51,7 +52,13 @@ class _FAQSState extends State<FAQS> {
         ),
         backgroundColor: Colors.white,
         actions: <Widget>[
-          FlatButton(onPressed: () {}, child: Text('Ask A Question'))
+          FlatButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return AskQuestion();
+                }));
+              },
+              child: Text('Ask A Question'))
         ],
       ),
       body: StreamBuilder(
@@ -99,27 +106,30 @@ class _FAQSState extends State<FAQS> {
           return ListView.builder(
             itemCount: snapshot.data.docs.length,
             itemBuilder: (context, index) {
-              return ExpansionCard(
-                backgroundColor: Colors.blue,
-                borderRadius: 30,
-                title: Text(
-                  snapshot.data.docs[index]['faqQuestion'],
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
-                  ),
-                ),
-                leading: Text(index.toString()),
-                children: [
-                  Text(
-                    snapshot.data.docs[index]['faqAnswer'],
+              return Padding(
+                padding: const EdgeInsets.all(15),
+                child: ExpansionCard(
+                  // backgroundColor: Colors.blue,
+                  borderRadius: 60,
+                  title: Text(
+                    snapshot.data.docs[index]['faqQuestion'],
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17,
                     ),
                   ),
-                ],
+                  // leading: Text(index.toString()),
+                  children: [
+                    Text(
+                      snapshot.data.docs[index]['faqAnswer'],
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
               );
             },
           );
