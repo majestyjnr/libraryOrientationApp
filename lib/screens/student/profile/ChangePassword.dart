@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
+import 'package:toast/toast.dart';
 
 class ChangePassword extends StatefulWidget {
   ChangePassword({Key key}) : super(key: key);
@@ -13,7 +15,8 @@ class ChangePassword extends StatefulWidget {
 class _ChangePasswordState extends State<ChangePassword> {
   bool obscured = true;
   bool isLoading = false;
-  TextEditingController _password = new TextEditingController();
+  TextEditingController _passwordNew = new TextEditingController();
+  TextEditingController _passwordConfirm = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +54,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 child: TextField(
                   keyboardType: TextInputType.text,
                   obscureText: obscured,
-                  controller: _password,
+                  controller: _passwordNew,
                   inputFormatters: [
                     FilteringTextInputFormatter.deny(
                       RegExp('[ ]'),
@@ -95,7 +98,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 child: TextField(
                   keyboardType: TextInputType.text,
                   obscureText: obscured,
-                  controller: _password,
+                  controller: _passwordConfirm,
                   inputFormatters: [
                     FilteringTextInputFormatter.deny(
                       RegExp('[ ]'),
@@ -145,6 +148,34 @@ class _ChangePasswordState extends State<ChangePassword> {
                         isLoading = true;
                       },
                     );
+
+                    if (_passwordNew.text == _passwordConfirm.text) {
+                      User userCurrent = FirebaseAuth.instance.currentUser;
+                      userCurrent
+                          .updatePassword(_passwordNew.text)
+                          .then((value) {
+                        Toast.show(
+                          'Password changed successfully',
+                          context,
+                          duration: Toast.LENGTH_LONG,
+                          gravity: Toast.BOTTOM,
+                        );
+                      }).catchError(() {
+                        Toast.show(
+                          'Password changing failed!',
+                          context,
+                          duration: Toast.LENGTH_LONG,
+                          gravity: Toast.BOTTOM,
+                        );
+                      });
+                    } else {
+                      Toast.show(
+                        'Passwords do not match!',
+                        context,
+                        duration: Toast.LENGTH_LONG,
+                        gravity: Toast.BOTTOM,
+                      );
+                    }
                   },
                   child: isLoading
                       ? NutsActivityIndicator(

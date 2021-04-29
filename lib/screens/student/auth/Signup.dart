@@ -247,7 +247,7 @@ class _SignupState extends State<Signup> {
                         });
                         // updateUser.displayName =
                         //     _firstname.text + ' ' + _lastname.text;
-                        // user.updateProfile(updateUser);
+                        // userCurrent.updateProfile(updateUser);
 
                         await prefs.setString(
                           'studentName',

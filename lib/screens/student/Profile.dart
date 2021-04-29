@@ -1,4 +1,5 @@
 import 'package:LibraryOrientationApp/screens/screens.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -50,6 +51,7 @@ class _ProfileState extends State<Profile> {
           isDestructiveAction: true,
           child: Text('Yes'),
           onPressed: () async {
+            await FirebaseAuth.instance.signOut();
             SharedPreferences prefs = await SharedPreferences.getInstance();
 
             prefs.remove('studentName');
