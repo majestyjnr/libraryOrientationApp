@@ -1,5 +1,6 @@
 import 'package:LibraryOrientationApp/main.dart';
 import 'package:LibraryOrientationApp/screens/screens.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -147,21 +148,43 @@ class _SigninState extends State<Signin> {
                       );
 
                       if (user != null) {
-                        await prefs.setString(
-                          'studentEmail',
-                          _emailController.text,
-                        );
-                        await prefs.setString(
-                          'studentPassword',
-                          _passwordController.text,
-                        );
+                        DocumentReference users = FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(user.user.uid);
 
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                          builder: (context) {
-                            return HomeScreen();
-                          },
-                        ), (Route<dynamic> route) => false);
+                        users.get().then((snapshot) async {
+                          // Store data in shared preferences
+
+                          await prefs.setString(
+                            'studentName',
+                            snapshot['firstName'] + ' ' + snapshot['lastName'],
+                          );
+                          await prefs.setString(
+                            'studentEmail',
+                            snapshot['email'],
+                          );
+                          await prefs.setString(
+                            'studentPhone',
+                            snapshot['phone'],
+                          );
+                          await prefs.setString(
+                            'studentDepartment',
+                            snapshot['department'],
+                          );
+                          await prefs.setString(
+                            'studentLevel',
+                            snapshot['level'],
+                          );
+
+                          // Navigate to dashboard after storin the data in shared preferences
+
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                            builder: (context) {
+                              return HomeScreen();
+                            },
+                          ), (Route<dynamic> route) => false);
+                        });
                       }
                     } catch (e) {
                       Toast.show(
