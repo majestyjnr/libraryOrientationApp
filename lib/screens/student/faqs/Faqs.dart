@@ -42,7 +42,7 @@ class _FAQSState extends State<FAQS> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.blue[700],
       appBar: AppBar(
         brightness: Brightness.light,
         elevation: 0.5,
@@ -85,7 +85,7 @@ class _FAQSState extends State<FAQS> {
               children: [
                 Center(
                   child: NutsActivityIndicator(
-                    activeColor: Colors.blue,
+                    activeColor: Colors.white,
                   ),
                 ),
                 SizedBox(
@@ -95,7 +95,7 @@ class _FAQSState extends State<FAQS> {
                   child: Text(
                     'Loading...',
                     style: TextStyle(
-                      color: Colors.blue,
+                      color: Colors.white,
                       fontSize: 25,
                     ),
                   ),
