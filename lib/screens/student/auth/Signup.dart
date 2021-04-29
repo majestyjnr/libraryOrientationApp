@@ -219,10 +219,6 @@ class _SignupState extends State<Signup> {
                         // user.updateProfile(updateUser);
 
                         await prefs.setString(
-                          'studentLevel',
-                          dropdownValue,
-                        );
-                        await prefs.setString(
                           'studentName',
                           _firstname.text + ' ' + _lastname.text,
                         );
@@ -231,8 +227,16 @@ class _SignupState extends State<Signup> {
                           _email.text,
                         );
                         await prefs.setString(
-                          'studentPassword',
-                          _password.text,
+                          'studentPhone',
+                          _phone.text,
+                        );
+                        await prefs.setString(
+                          'studentDepartment',
+                          _department.text,
+                        );
+                        await prefs.setString(
+                          'studentLevel',
+                          'Level $dropdownValue',
                         );
 
                         User signInUser = FirebaseAuth.instance.currentUser;
