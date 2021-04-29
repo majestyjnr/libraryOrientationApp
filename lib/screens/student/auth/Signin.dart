@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
@@ -64,6 +65,11 @@ class _SigninState extends State<Signin> {
                   child: TextField(
                     keyboardType: TextInputType.emailAddress,
                     controller: _emailController,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.deny(
+                        RegExp('[ ]'),
+                      ),
+                    ],
                     decoration: InputDecoration(
                       hintText: 'Email',
                       border: InputBorder.none,
@@ -83,6 +89,11 @@ class _SigninState extends State<Signin> {
                     keyboardType: TextInputType.text,
                     controller: _passwordController,
                     obscureText: obscured,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.deny(
+                        RegExp('[ ]'),
+                      ),
+                    ],
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Password',
