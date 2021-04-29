@@ -12,9 +12,11 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  String _studentLevel = '';
   String _studentName = '';
   String _studentEmail = '';
+  String _studentPhone = '';
+  String _studentDepartment = '';
+  String _studentLevel = '';
 
   @override
   void initState() {
@@ -25,9 +27,11 @@ class _ProfileState extends State<Profile> {
   _getUserDetails() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      _studentLevel = prefs.getString("studentLevel");
       _studentName = prefs.getString("studentName");
       _studentEmail = prefs.getString("studentEmail");
+      _studentPhone = prefs.getString("studentPhone");
+      _studentDepartment = prefs.getString("studentDepartment");
+      _studentLevel = prefs.getString("studentLevel");
     });
   }
 
@@ -108,8 +112,12 @@ class _ProfileState extends State<Profile> {
                     onTap: () {
                       // Open Edit Profile
                     },
-                    title: Text('_studentName'),
-                    subtitle: Text('_studentEmail'),
+                    title: (_studentName != null)
+                        ? Text(_studentName)
+                        : Text('Loading...'),
+                    subtitle: (_studentName != null)
+                        ? Text(_studentEmail)
+                        : Text('Loading...'),
                     trailing: CircleAvatar(
                       backgroundColor: Colors.grey,
                       child: Image(
