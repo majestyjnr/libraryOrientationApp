@@ -157,6 +157,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         SweetAlert.show(context,
                             title: 'Success!',
                             subtitle: 'Password changed successfully',
+                            cancelButtonColor: Colors.blue,
                             // ignore: missing_return
                             style: SweetAlertStyle.success, onPress: (y) {
                           Navigator.pop(context);
