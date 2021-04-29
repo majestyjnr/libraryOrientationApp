@@ -1,6 +1,7 @@
 // STUDENTS
 export 'student/Home.dart';
 export 'student/Profile.dart';
+export 'student/profile/ChangePassword.dart';
 export 'student/faqs/Faqs.dart';
 export 'student/faqs/AskQuestion.dart';
 
