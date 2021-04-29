@@ -51,10 +51,13 @@ class _ProfileState extends State<Profile> {
           child: Text('Yes'),
           onPressed: () async {
             SharedPreferences prefs = await SharedPreferences.getInstance();
-            prefs.getString('studentLevel');
-            prefs.getString('studentName');
-            prefs.getString('studentEmail');
-            prefs.getString('studentPassword');
+
+            prefs.remove('studentName');
+            prefs.remove('studentEmail');
+            prefs.remove('studentPhone');
+            prefs.remove('studentDepartment');
+            prefs.remove('studentLevel');
+
             Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
                 builder: (context) => MainAuth(),
@@ -90,7 +93,7 @@ class _ProfileState extends State<Profile> {
               icon: Icon(FontAwesomeIcons.signOutAlt, color: Colors.blue),
               onPressed: () {
                 _showDialog(context);
-              })
+              }),
         ],
       ),
       body: Stack(
@@ -139,14 +142,14 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         Text('Department:'),
                         Spacer(),
-                        Text('ICTE')
+                        Text(_studentDepartment)
                       ],
                     ),
                     subtitle: Row(
                       children: <Widget>[
                         Text('Level:'),
                         Spacer(),
-                        Text('100'),
+                        Text(_studentLevel),
                       ],
                     ),
                   ),
@@ -164,14 +167,14 @@ class _ProfileState extends State<Profile> {
                     children: <Widget>[
                       ListTile(
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) {
-                          //       return ChangePassword();
-                          //     },
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return ChangePassword();
+                              },
+                            ),
+                          );
                         },
                         leading: Icon(CupertinoIcons.padlock),
                         title: Text('Change Password'),
