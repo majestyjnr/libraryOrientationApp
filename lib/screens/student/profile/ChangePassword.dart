@@ -154,14 +154,26 @@ class _ChangePasswordState extends State<ChangePassword> {
                       userCurrent
                           .updatePassword(_passwordNew.text)
                           .then((value) {
-                        SweetAlert.show(
-                          context,
-                          title: 'Success!',
-                          subtitle:
-                              'You have successfully changed your password',
-                          style: SweetAlertStyle.success,
+                        SweetAlert.show(context,
+                            title: 'Success!',
+                            subtitle: 'Password changed successfully',
+                            // ignore: missing_return
+                            style: SweetAlertStyle.success, onPress: (y) {
+                          Navigator.pop(context);
+                        });
+                        setState(
+                          () {
+                            isLoading = false;
+                          },
                         );
+                        _passwordNew.text = '';
+                        _passwordConfirm.text = '';
                       }).catchError(() {
+                        setState(
+                          () {
+                            isLoading = false;
+                          },
+                        );
                         SweetAlert.show(
                           context,
                           title: 'Error!',
@@ -170,6 +182,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                         );
                       });
                     } else {
+                      setState(
+                        () {
+                          isLoading = false;
+                        },
+                      );
                       SweetAlert.show(
                         context,
                         title: 'Error!',
