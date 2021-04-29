@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
+import 'package:sweetalert/sweetalert.dart';
 import 'package:toast/toast.dart';
 
 class ChangePassword extends StatefulWidget {
@@ -148,32 +149,32 @@ class _ChangePasswordState extends State<ChangePassword> {
                         isLoading = true;
                       },
                     );
-
                     if (_passwordNew.text == _passwordConfirm.text) {
                       User userCurrent = FirebaseAuth.instance.currentUser;
                       userCurrent
                           .updatePassword(_passwordNew.text)
                           .then((value) {
-                        Toast.show(
-                          'Password changed successfully',
+                        SweetAlert.show(
                           context,
-                          duration: Toast.LENGTH_LONG,
-                          gravity: Toast.BOTTOM,
+                          title: 'Success!',
+                          subtitle:
+                              'You have successfully changed your password',
+                          style: SweetAlertStyle.success,
                         );
                       }).catchError(() {
-                        Toast.show(
-                          'Password changing failed!',
+                        SweetAlert.show(
                           context,
-                          duration: Toast.LENGTH_LONG,
-                          gravity: Toast.BOTTOM,
+                          title: 'Error!',
+                          subtitle: 'Password changing failed!',
+                          style: SweetAlertStyle.error,
                         );
                       });
                     } else {
-                      Toast.show(
-                        'Passwords do not match!',
+                      SweetAlert.show(
                         context,
-                        duration: Toast.LENGTH_LONG,
-                        gravity: Toast.BOTTOM,
+                        title: 'Error!',
+                        subtitle: 'Passwords do not match!',
+                        style: SweetAlertStyle.error,
                       );
                     }
                   },
