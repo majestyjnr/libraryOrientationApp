@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sweetalert/sweetalert.dart';
 import 'package:toast/toast.dart';
 
 class Signup extends StatefulWidget {
@@ -283,85 +284,132 @@ class _SignupState extends State<Signup> {
                   child: FlatButton(
                     color: Colors.blue,
                     onPressed: () async {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      setState(() {
-                        isLoading = true;
-                      });
-                      try {
-                        UserCredential user = await FirebaseAuth.instance
-                            .createUserWithEmailAndPassword(
-                          email: _email.text,
-                          password: _password.text,
-                        );
-
-                        if (user != null) {
-                          // Get The Current User
-                          User userCurrent = FirebaseAuth.instance.currentUser;
-
-                          // Save the user details into the database
-                          FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(userCurrent.uid)
-                              .set({
-                            'firstName': _firstname.text,
-                            'lastName': _lastname.text,
-                            'email': _email.text,
-                            'phone': _phone.text,
-                            'department': _department.text,
-                            'level': dropdownValue,
-                            'role': 'User'
-                          });
-                          // updateUser.displayName =
-                          //     _firstname.text + ' ' + _lastname.text;
-                          // userCurrent.updateProfile(updateUser);
-
-                          await prefs.setString(
-                            'studentName',
-                            _firstname.text + ' ' + _lastname.text,
-                          );
-                          await prefs.setString(
-                            'studentEmail',
-                            _email.text,
-                          );
-                          await prefs.setString(
-                            'studentPhone',
-                            _phone.text,
-                          );
-                          await prefs.setString(
-                            'studentDepartment',
-                            _department.text,
-                          );
-                          await prefs.setString(
-                            'studentLevel',
-                            'Level $dropdownValue',
-                          );
-
-                          User signInUser = FirebaseAuth.instance.currentUser;
-                          signInUser.sendEmailVerification().then((value) {
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                              builder: (context) {
-                                return HomeScreen();
-                              },
-                            ), (Route<dynamic> route) => false);
-                          }).catchError((onError) {
-                            print(onError);
-                          });
-                        }
-                      } on FirebaseAuthException catch (e) {
-                        print(e);
-                        Toast.show(
-                          '$e',
-                          context,
-                          duration: Toast.LENGTH_LONG,
-                          gravity: Toast.BOTTOM,
-                        );
+                      if (_firstname.text.isEmpty) {
                         setState(() {
-                          isLoading = false;
+                          _firstValidate = true;
                         });
-                        _email.text = '';
-                        _password.text = '';
+                      } else if (_lastname.text.isEmpty) {
+                        setState(() {
+                          _lastValidate = true;
+                        });
+                      } else if (_email.text.isEmpty) {
+                        setState(() {
+                          _emailValidate = true;
+                        });
+                      } else if (_phone.text.isEmpty) {
+                        setState(() {
+                          _phoneValidate = true;
+                        });
+                      } else if (_department.text.isEmpty) {
+                        setState(() {
+                          _departmentValidate = true;
+                        });
+                      } else if (_password.text.isEmpty) {
+                        setState(() {
+                          _passwordValidate = true;
+                        });
+                      } else {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        setState(() {
+                          isLoading = true;
+                        });
+                        try {
+                          UserCredential user = await FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                            email: _email.text,
+                            password: _password.text,
+                          );
+
+                          if (user != null) {
+                            // Get The Current User
+                            User userCurrent =
+                                FirebaseAuth.instance.currentUser;
+
+                            // Save the user details into the database
+                            FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(userCurrent.uid)
+                                .set({
+                              'firstName': _firstname.text,
+                              'lastName': _lastname.text,
+                              'email': _email.text,
+                              'phone': _phone.text,
+                              'department': _department.text,
+                              'level': dropdownValue,
+                              'role': 'User'
+                            });
+                            // updateUser.displayName =
+                            //     _firstname.text + ' ' + _lastname.text;
+                            // userCurrent.updateProfile(updateUser);
+
+                            await prefs.setString(
+                              'studentName',
+                              _firstname.text + ' ' + _lastname.text,
+                            );
+                            await prefs.setString(
+                              'studentEmail',
+                              _email.text,
+                            );
+                            await prefs.setString(
+                              'studentPhone',
+                              _phone.text,
+                            );
+                            await prefs.setString(
+                              'studentDepartment',
+                              _department.text,
+                            );
+                            await prefs.setString(
+                              'studentLevel',
+                              dropdownValue,
+                            );
+
+                            User signInUser = FirebaseAuth.instance.currentUser;
+                            signInUser.sendEmailVerification().then((value) {
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                builder: (context) {
+                                  return HomeScreen();
+                                },
+                              ), (Route<dynamic> route) => false);
+                            }).catchError((onError) {
+                              print(onError);
+                            });
+                          }
+                        } on FirebaseAuthException catch (e) {
+                          setState(() {
+                            isLoading = false;
+                          });
+                          _email.text = '';
+                          _password.text = '';
+
+                          switch (e.code) {
+                            case 'email-already-exists':
+                              return SweetAlert.show(
+                                context,
+                                title: 'Error!',
+                                subtitle: 'Email already exists',
+                                style: SweetAlertStyle.error,
+                              );
+                              break;
+                            case 'invalid-email':
+                              return SweetAlert.show(
+                                context,
+                                title: 'Error!',
+                                subtitle: 'Invalid email provided',
+                                style: SweetAlertStyle.error,
+                              );
+                              break;
+                            default:
+                              return SweetAlert.show(
+                                context,
+                                title: 'Error!',
+                                subtitle: 'An error occured',
+                                style: SweetAlertStyle.error,
+                              );
+                              break;
+                          }
+                        }
                       }
                     },
                     child: isLoading
