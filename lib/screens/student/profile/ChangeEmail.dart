@@ -100,42 +100,53 @@ class _ChangeEmailState extends State<ChangeEmail> {
                       setState(() {
                         _emailValidate = true;
                       });
-                    } else {}
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    setState(
-                      () {
+                    } else {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      setState(() {
                         isLoading = true;
-                      },
-                    );
-                    if (_emailNew.text != null) {
-                      User userCurrent = FirebaseAuth.instance.currentUser;
-                      userCurrent
-                          .updateEmail(_emailNew.text)
-                          .then((value) async {
-                        // Remove Old Email
-                        prefs.remove('studentEmail');
-                        // Set New Email
-                        await prefs.setString(
-                          'studentEmail',
-                          _emailNew.text,
-                        );
-                        // Display Alert
-                        SweetAlert.show(context,
-                            title: 'Success!',
-                            subtitle: 'Email changed successfully',
-                            cancelButtonColor: Colors.blue,
-                            // ignore: missing_return
-                            style: SweetAlertStyle.success, onPress: (y) {
-                          Navigator.pop(context);
+                      });
+                      if (_emailNew.text != null) {
+                        User userCurrent = FirebaseAuth.instance.currentUser;
+                        userCurrent
+                            .updateEmail(_emailNew.text)
+                            .then((value) async {
+                          // Remove Old Email
+                          prefs.remove('studentEmail');
+                          // Set New Email
+                          await prefs.setString(
+                            'studentEmail',
+                            _emailNew.text,
+                          );
+                          // Display Alert
+                          SweetAlert.show(context,
+                              title: 'Success!',
+                              subtitle: 'Email changed successfully',
+                              cancelButtonColor: Colors.blue,
+                              // ignore: missing_return
+                              style: SweetAlertStyle.success, onPress: (y) {
+                            Navigator.pop(context);
+                          });
+                          setState(
+                            () {
+                              isLoading = false;
+                            },
+                          );
+                          _emailNew.text = '';
+                        }).catchError(() {
+                          setState(
+                            () {
+                              isLoading = false;
+                            },
+                          );
+                          SweetAlert.show(
+                            context,
+                            title: 'Error!',
+                            subtitle: 'Email changing failed!',
+                            style: SweetAlertStyle.error,
+                          );
                         });
-                        setState(
-                          () {
-                            isLoading = false;
-                          },
-                        );
-                        _emailNew.text = '';
-                      }).catchError(() {
+                      } else {
                         setState(
                           () {
                             isLoading = false;
@@ -144,22 +155,10 @@ class _ChangeEmailState extends State<ChangeEmail> {
                         SweetAlert.show(
                           context,
                           title: 'Error!',
-                          subtitle: 'Email changing failed!',
+                          subtitle: 'Passwords do not match!',
                           style: SweetAlertStyle.error,
                         );
-                      });
-                    } else {
-                      setState(
-                        () {
-                          isLoading = false;
-                        },
-                      );
-                      SweetAlert.show(
-                        context,
-                        title: 'Error!',
-                        subtitle: 'Passwords do not match!',
-                        style: SweetAlertStyle.error,
-                      );
+                      }
                     }
                   },
                   child: isLoading

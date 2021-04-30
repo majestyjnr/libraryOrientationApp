@@ -149,7 +149,31 @@ class _ChangePasswordState extends State<ChangePassword> {
                         isLoading = true;
                       },
                     );
-                    if (_passwordNew.text == _passwordConfirm.text) {
+                    if (_passwordNew.text.isEmpty) {
+                      setState(
+                        () {
+                          isLoading = false;
+                        },
+                      );
+                      SweetAlert.show(
+                        context,
+                        title: 'Error!',
+                        subtitle: 'New password is empty',
+                        style: SweetAlertStyle.error,
+                      );
+                    } else if (_passwordConfirm.text.isEmpty) {
+                      setState(
+                        () {
+                          isLoading = false;
+                        },
+                      );
+                      SweetAlert.show(
+                        context,
+                        title: 'Error!',
+                        subtitle: 'Confirm new password is empty',
+                        style: SweetAlertStyle.error,
+                      );
+                    } else if (_passwordNew.text == _passwordConfirm.text) {
                       User userCurrent = FirebaseAuth.instance.currentUser;
                       userCurrent
                           .updatePassword(_passwordNew.text)
