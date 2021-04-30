@@ -27,6 +27,32 @@ class AboutApp extends StatelessWidget {
           ),
         ),
       ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Container(
+                  child: Image(
+                    image: AssetImage('assets/images/uew.png'),
+                  ),
+                ),
+              ),
+            ),
+            Text(
+              'Library Orientation App',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            SelectableText(
+              'This is the official Library Orientaion App of UEW',
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
