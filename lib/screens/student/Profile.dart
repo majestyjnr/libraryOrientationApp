@@ -166,31 +166,107 @@ class _ProfileState extends State<Profile> {
                 SizedBox(
                   height: 10,
                 ),
-                Card(
-                  elevation: 4,
-                  margin: EdgeInsets.fromLTRB(20, 8, 20, 8),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      ListTile(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return ChangePassword();
-                              },
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Material(
+                        child: InkWell(
+                          child: Container(
+                            width: 160,
+                            height: 150,
+                            decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(15),
+                              ),
                             ),
-                          );
-                        },
-                        leading: Icon(CupertinoIcons.padlock),
-                        title: Text('Change Password'),
-                        trailing: Icon(CupertinoIcons.forward),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  CupertinoIcons.mail,
+                                  size: 45,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'Change Email',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return ChangeEmail();
+                                },
+                              ),
+                            );
+                          },
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Material(
+                        child: InkWell(
+                          child: Container(
+                            width: 160,
+                            height: 150,
+                            decoration: BoxDecoration(
+                              color: Colors.redAccent,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(15),
+                              ),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  CupertinoIcons.padlock,
+                                  size: 45,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'Change Password',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return ChangePassword();
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
