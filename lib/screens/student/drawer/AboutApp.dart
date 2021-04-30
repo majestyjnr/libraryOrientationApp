@@ -40,9 +40,11 @@ class AboutApp extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
-              'Library Orientation App',
-              style: TextStyle(fontWeight: FontWeight.bold),
+            Center(
+              child: Text(
+                'Library Orientation App\nV 1.0.0',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
             SizedBox(
               height: 30,
