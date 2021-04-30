@@ -1,6 +1,8 @@
 import 'package:LibraryOrientationApp/screens/screens.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
@@ -52,9 +54,9 @@ class _HomeState extends State<Home> {
                   color: Colors.yellow,
                 ),
                 onTap: () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  //   return AboutMethodist();
-                  // }));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return AboutApp();
+                  }));
                 },
               ),
               Divider(
@@ -67,9 +69,9 @@ class _HomeState extends State<Home> {
                   color: Colors.blue,
                 ),
                 onTap: () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  //   return AboutMethodist();
-                  // }));
+                  Share.share('Download the Official UEW Library Orientation App from here:  https://developer-majesty.herokuapp.com',
+                      subject:
+                          'Download the Official UEW Library Orientation App from here');
                 },
               ),
             ],
@@ -149,6 +151,17 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
+    );
+  }
+}
+
+_rateApp() async {
+  const url = 'https://play.google.com/store/apps';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    return SnackBar(
+      content: Text('Cannot launch URL'),
     );
   }
 }

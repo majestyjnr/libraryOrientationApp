@@ -35,6 +35,8 @@ dependencies:
   expansion_card: ^0.1.0
   papercups_flutter: 
   sweetalert:
+  url_launcher:
+  share:
   # cloud_firestore: ^0.16.0+1
   # ^0.5.20
 
