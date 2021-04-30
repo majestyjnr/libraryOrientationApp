@@ -58,7 +58,9 @@ class _HomeState extends State<Home> {
                   CupertinoIcons.star_fill,
                   color: Colors.yellow,
                 ),
-                onTap: () {},
+                onTap: () {
+                  _rateApp();
+                },
               ),
               Divider(
                 height: 0,
