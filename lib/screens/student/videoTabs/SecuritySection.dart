@@ -28,6 +28,7 @@ class _SecuritySectionState extends State<SecuritySection> {
           _videoDescription = doc['videoDescription'];
         });
         flickManager = FlickManager(
+          autoPlay: false,
           videoPlayerController: VideoPlayerController.network('$_videoURL'),
         );
       });

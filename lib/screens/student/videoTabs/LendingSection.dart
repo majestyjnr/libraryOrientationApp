@@ -28,6 +28,7 @@ class _LendingSectionState extends State<LendingSection> {
           _videoDescription = doc['videoDescription'];
         });
         flickManager = FlickManager(
+          autoPlay: false,
           videoPlayerController: VideoPlayerController.network('$_videoURL'),
         );
       });

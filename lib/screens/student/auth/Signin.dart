@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sweetalert/sweetalert.dart';
 import 'package:toast/toast.dart';
 
 class Signin extends StatefulWidget {
@@ -232,20 +233,42 @@ class _SigninState extends State<Signin> {
                             ), (Route<dynamic> route) => false);
                           });
                         }
-                      } catch (e) {
-                        Toast.show(
-                          '$e',
-                          context,
-                          duration: Toast.LENGTH_LONG,
-                          gravity: Toast.BOTTOM,
-                        );
-                        print(e);
+                      } on FirebaseAuthException catch (e) {
                         setState(() {
                           isLoading = false;
                         });
-                        _showDialog(context);
                         _emailController.text = '';
                         _passwordController.text = '';
+
+                        switch (e.code) {
+                          case 'unknown':
+                            return SweetAlert.show(
+                              context,
+                              title: 'Error!',
+                              subtitle: 'No/Slow internet connection',
+                              style: SweetAlertStyle.error,
+                            );
+                            break;
+                          case 'wrong-password':
+                            return _showDialog(context);
+                            break;
+                          case 'invalid-email':
+                            return SweetAlert.show(
+                              context,
+                              title: 'Error!',
+                              subtitle: 'Invalid email provided',
+                              style: SweetAlertStyle.error,
+                            );
+                            break;
+                          default:
+                            return SweetAlert.show(
+                              context,
+                              title: 'Error!',
+                              subtitle: 'A login error occured',
+                              style: SweetAlertStyle.error,
+                            );
+                            break;
+                        }
                       }
                     }
                   },

@@ -28,6 +28,7 @@ class _SpecialReserveSectionState extends State<SpecialReserveSection> {
           _videoDescription = doc['videoDescription'];
         });
         flickManager = FlickManager(
+          autoPlay: false,
           videoPlayerController: VideoPlayerController.network('$_videoURL'),
         );
       });

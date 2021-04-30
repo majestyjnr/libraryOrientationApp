@@ -29,6 +29,7 @@ class _ReferenceSectionState extends State<ReferenceSection> {
           _videoDescription = doc['videoDescription'];
         });
         flickManager = FlickManager(
+          autoPlay: false,
           videoPlayerController: VideoPlayerController.network('$_videoURL'),
         );
       });
