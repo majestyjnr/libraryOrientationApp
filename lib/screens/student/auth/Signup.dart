@@ -24,7 +24,7 @@ class _SignupState extends State<Signup> {
   bool _phoneValidate = false;
   bool _departmentValidate = false;
   bool _passwordValidate = false;
-  String dropdownValue = '100';
+  String dropdownValue = 'Level 100';
   TextEditingController _firstname = new TextEditingController();
   TextEditingController _lastname = new TextEditingController();
   TextEditingController _email = new TextEditingController();
@@ -49,6 +49,13 @@ class _SignupState extends State<Signup> {
                     child: TextField(
                       keyboardType: TextInputType.emailAddress,
                       controller: _firstname,
+                      onChanged: (value) {
+                        if (value.isNotEmpty) {
+                          setState(() {
+                            _firstValidate = false;
+                          });
+                        }
+                      },
                       inputFormatters: [
                         FilteringTextInputFormatter.deny(
                           RegExp('[ ]'),
@@ -58,6 +65,9 @@ class _SignupState extends State<Signup> {
                         hintText: 'Firstname',
                         border: InputBorder.none,
                         prefixIcon: Icon(Icons.person),
+                        errorText: _firstValidate
+                            ? 'Firstname field cannot be empty'
+                            : null,
                       ),
                     ),
                   ),
@@ -69,6 +79,13 @@ class _SignupState extends State<Signup> {
                     child: TextField(
                       keyboardType: TextInputType.emailAddress,
                       controller: _lastname,
+                      onChanged: (value) {
+                        if (value.isNotEmpty) {
+                          setState(() {
+                            _lastValidate = false;
+                          });
+                        }
+                      },
                       inputFormatters: [
                         FilteringTextInputFormatter.deny(
                           RegExp('[ ]'),
@@ -78,6 +95,9 @@ class _SignupState extends State<Signup> {
                         hintText: 'Lastname',
                         border: InputBorder.none,
                         prefixIcon: Icon(Icons.person),
+                        errorText: _lastValidate
+                            ? 'Lastname field cannot be empty'
+                            : null,
                       ),
                     ),
                   ),
@@ -89,6 +109,13 @@ class _SignupState extends State<Signup> {
                     child: TextField(
                       keyboardType: TextInputType.emailAddress,
                       controller: _email,
+                      onChanged: (value) {
+                        if (value.isNotEmpty) {
+                          setState(() {
+                            _emailValidate = false;
+                          });
+                        }
+                      },
                       inputFormatters: [
                         FilteringTextInputFormatter.deny(
                           RegExp('[ ]'),
@@ -98,6 +125,9 @@ class _SignupState extends State<Signup> {
                         hintText: 'Email',
                         border: InputBorder.none,
                         prefixIcon: Icon(Icons.mail),
+                        errorText: _emailValidate
+                            ? 'Email field cannot be empty'
+                            : null,
                       ),
                     ),
                   ),
@@ -109,6 +139,13 @@ class _SignupState extends State<Signup> {
                     child: TextField(
                       keyboardType: TextInputType.numberWithOptions(),
                       controller: _phone,
+                      onChanged: (value) {
+                        if (value.isNotEmpty) {
+                          setState(() {
+                            _phoneValidate = false;
+                          });
+                        }
+                      },
                       inputFormatters: [
                         FilteringTextInputFormatter.deny(
                           RegExp('[ ]'),
@@ -120,6 +157,9 @@ class _SignupState extends State<Signup> {
                         prefixIcon: Icon(
                           Icons.phone_iphone,
                         ),
+                        errorText: _phoneValidate
+                            ? 'Phone field cannot be empty'
+                            : null,
                       ),
                     ),
                   ),
@@ -131,6 +171,13 @@ class _SignupState extends State<Signup> {
                     child: TextField(
                       keyboardType: TextInputType.text,
                       controller: _department,
+                      onChanged: (value) {
+                        if (value.isNotEmpty) {
+                          setState(() {
+                            _departmentValidate = false;
+                          });
+                        }
+                      },
                       inputFormatters: [
                         FilteringTextInputFormatter.deny(
                           RegExp('[ ]'),
@@ -140,6 +187,9 @@ class _SignupState extends State<Signup> {
                         hintText: 'Department',
                         border: InputBorder.none,
                         prefixIcon: Icon(Icons.school),
+                        errorText: _departmentValidate
+                            ? 'Department field cannot be empty'
+                            : null,
                       ),
                     ),
                   ),
@@ -155,17 +205,17 @@ class _SignupState extends State<Signup> {
                         DropdownButton<String>(
                           value: dropdownValue,
                           items: <String>[
-                            '100',
-                            '200',
-                            '300',
-                            '400',
-                            '500',
-                            '600'
+                            'Level 100',
+                            'Level 200',
+                            'Level 300',
+                            'Level 400',
+                            'Level 500',
+                            'Level 600'
                           ].map<DropdownMenuItem<String>>(
                             (String value) {
                               return DropdownMenuItem(
                                 value: value,
-                                child: Text('Level $value'),
+                                child: Text(value),
                               );
                             },
                           ).toList(),
@@ -187,6 +237,13 @@ class _SignupState extends State<Signup> {
                       keyboardType: TextInputType.text,
                       obscureText: obscured,
                       controller: _password,
+                      onChanged: (value) {
+                        if (value.isNotEmpty) {
+                          setState(() {
+                            _passwordValidate = false;
+                          });
+                        }
+                      },
                       inputFormatters: [
                         FilteringTextInputFormatter.deny(
                           RegExp('[ ]'),
@@ -195,6 +252,9 @@ class _SignupState extends State<Signup> {
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Password',
+                        errorText: _passwordValidate
+                            ? 'Password field cannot be empty'
+                            : null,
                         prefixIcon: Icon(Icons.security),
                         suffixIcon: IconButton(
                           onPressed: () {
@@ -249,7 +309,7 @@ class _SignupState extends State<Signup> {
                             'email': _email.text,
                             'phone': _phone.text,
                             'department': _department.text,
-                            'level': 'Level $dropdownValue',
+                            'level': dropdownValue,
                             'role': 'User'
                           });
                           // updateUser.displayName =
