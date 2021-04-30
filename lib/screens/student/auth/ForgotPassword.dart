@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
+import 'package:sweetalert/sweetalert.dart';
 import 'package:toast/toast.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -112,16 +113,46 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 },
                               ), (Route<dynamic> route) => false),
                             );
-                      } catch (e) {
-                        Toast.show(
-                          '$e',
-                          context,
-                          duration: Toast.LENGTH_LONG,
-                          gravity: Toast.BOTTOM,
-                        );
+                      } on FirebaseAuthException catch (e) {
                         setState(() {
                           isLoading = false;
                         });
+
+                        switch (e.code) {
+                          case 'unknown':
+                            return SweetAlert.show(
+                              context,
+                              title: 'Error!',
+                              subtitle: 'No or Slow internet connection',
+                              style: SweetAlertStyle.error,
+                            );
+                            break;
+                          case 'wrong-password':
+                            return SweetAlert.show(
+                              context,
+                              title: 'Error!',
+                              subtitle: 'Invalid email provided',
+                              style: SweetAlertStyle.error,
+                            );
+                            ;
+                            break;
+                          case 'invalid-email':
+                            return SweetAlert.show(
+                              context,
+                              title: 'Error!',
+                              subtitle: 'Invalid email provided',
+                              style: SweetAlertStyle.error,
+                            );
+                            break;
+                          default:
+                            return SweetAlert.show(
+                              context,
+                              title: 'Error!',
+                              subtitle: 'An error occured',
+                              style: SweetAlertStyle.error,
+                            );
+                            break;
+                        }
                       }
                     }
                   },
