@@ -166,6 +166,8 @@ class _SigninState extends State<Signin> {
 
                       setState(() {
                         isLoading = true;
+                        _emailValidate = false;
+                        _passwordValidate = false;
                       });
 
                       try {
