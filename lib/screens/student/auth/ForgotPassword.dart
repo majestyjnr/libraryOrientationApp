@@ -2,6 +2,7 @@ import 'package:LibraryOrientationApp/screens/student/auth/RecoveryEmailSent.dar
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:toast/toast.dart';
 
@@ -14,6 +15,7 @@ class ForgotPassword extends StatefulWidget {
 
 class _ForgotPasswordState extends State<ForgotPassword> {
   bool isLoading = false;
+  bool _emailValidate = false;
   TextEditingController _emailController = new TextEditingController();
 
   @override
@@ -59,8 +61,22 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   child: TextField(
                     keyboardType: TextInputType.emailAddress,
                     controller: _emailController,
+                    onChanged: (value) {
+                      if (value.isNotEmpty) {
+                        setState(() {
+                          _emailValidate = false;
+                        });
+                      }
+                    },
+                    inputFormatters: [
+                      FilteringTextInputFormatter.deny(
+                        RegExp('[ ]'),
+                      ),
+                    ],
                     decoration: InputDecoration(
                       hintText: 'Email',
+                      errorText:
+                          _emailValidate ? 'Email field cannot be empty' : null,
                       border: InputBorder.none,
                       prefixIcon: Icon(Icons.mail),
                     ),
@@ -76,31 +92,37 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 child: FlatButton(
                   color: Colors.blue,
                   onPressed: () async {
-                    setState(() {
-                      isLoading = true;
-                    });
-
-                    try {
-                      await FirebaseAuth.instance
-                          .sendPasswordResetEmail(email: _emailController.text)
-                          .then(
-                            (value) => Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                              builder: (context) {
-                                return RecoveryEmailSent();
-                              },
-                            ), (Route<dynamic> route) => false),
-                          );
-                    } catch (e) {
-                      Toast.show(
-                        '$e',
-                        context,
-                        duration: Toast.LENGTH_LONG,
-                        gravity: Toast.BOTTOM,
-                      );
+                    if (_emailController.text.isEmpty) {
                       setState(() {
-                        isLoading = false;
+                        _emailValidate = true;
                       });
+                    } else {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      try {
+                        await FirebaseAuth.instance
+                            .sendPasswordResetEmail(
+                                email: _emailController.text)
+                            .then(
+                              (value) => Navigator.of(context)
+                                  .pushAndRemoveUntil(MaterialPageRoute(
+                                builder: (context) {
+                                  return RecoveryEmailSent();
+                                },
+                              ), (Route<dynamic> route) => false),
+                            );
+                      } catch (e) {
+                        Toast.show(
+                          '$e',
+                          context,
+                          duration: Toast.LENGTH_LONG,
+                          gravity: Toast.BOTTOM,
+                        );
+                        setState(() {
+                          isLoading = false;
+                        });
+                      }
                     }
                   },
                   child: isLoading

@@ -68,18 +68,25 @@ class _SigninState extends State<Signin> {
                   child: TextField(
                     keyboardType: TextInputType.emailAddress,
                     controller: _emailController,
+                    onChanged: (value) {
+                      if (value.isNotEmpty) {
+                        setState(() {
+                          _emailValidate = false;
+                        });
+                      }
+                    },
                     inputFormatters: [
                       FilteringTextInputFormatter.deny(
                         RegExp('[ ]'),
                       ),
                     ],
                     decoration: InputDecoration(
-                        hintText: 'Email',
-                        border: InputBorder.none,
-                        prefixIcon: Icon(Icons.mail),
-                        errorText: _emailValidate
-                            ? 'Email field cannot be empty'
-                            : null),
+                      hintText: 'Email',
+                      border: InputBorder.none,
+                      prefixIcon: Icon(Icons.mail),
+                      errorText:
+                          _emailValidate ? 'Email field cannot be empty' : null,
+                    ),
                   ),
                 ),
               ),
@@ -94,6 +101,13 @@ class _SigninState extends State<Signin> {
                     keyboardType: TextInputType.text,
                     controller: _passwordController,
                     obscureText: obscured,
+                    onChanged: (value) {
+                      if (value.isNotEmpty) {
+                        setState(() {
+                          _passwordValidate = false;
+                        });
+                      }
+                    },
                     inputFormatters: [
                       FilteringTextInputFormatter.deny(
                         RegExp('[ ]'),
