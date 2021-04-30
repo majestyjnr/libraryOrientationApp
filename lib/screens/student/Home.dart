@@ -39,9 +39,14 @@ class _HomeState extends State<Home> {
                   color: Colors.red,
                 ),
                 onTap: () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  //   return AboutMethodist();
-                  // }));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return AboutApp();
+                      },
+                    ),
+                  );
                 },
               ),
               Divider(
@@ -53,11 +58,7 @@ class _HomeState extends State<Home> {
                   CupertinoIcons.star_fill,
                   color: Colors.yellow,
                 ),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return AboutApp();
-                  }));
-                },
+                onTap: () {},
               ),
               Divider(
                 height: 0,
@@ -69,7 +70,8 @@ class _HomeState extends State<Home> {
                   color: Colors.blue,
                 ),
                 onTap: () {
-                  Share.share('Download the Official UEW Library Orientation App from here:  https://developer-majesty.herokuapp.com',
+                  Share.share(
+                      'Download the Official UEW Library Orientation App from here:  https://developer-majesty.herokuapp.com',
                       subject:
                           'Download the Official UEW Library Orientation App from here');
                 },
