@@ -19,6 +19,9 @@ class Signin extends StatefulWidget {
 class _SigninState extends State<Signin> {
   bool obscured = true;
   bool isLoading = false;
+  bool _emailValidate = false;
+  bool _passwordValidate = false;
+
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();
 
@@ -71,10 +74,12 @@ class _SigninState extends State<Signin> {
                       ),
                     ],
                     decoration: InputDecoration(
-                      hintText: 'Email',
-                      border: InputBorder.none,
-                      prefixIcon: Icon(Icons.mail),
-                    ),
+                        hintText: 'Email',
+                        border: InputBorder.none,
+                        prefixIcon: Icon(Icons.mail),
+                        errorText: _emailValidate
+                            ? 'Email field cannot be empty'
+                            : null),
                   ),
                 ),
               ),
@@ -98,6 +103,9 @@ class _SigninState extends State<Signin> {
                       border: InputBorder.none,
                       hintText: 'Password',
                       prefixIcon: Icon(Icons.security),
+                      errorText: _passwordValidate
+                          ? 'Password field cannot be empty'
+                          : null,
                       suffixIcon: IconButton(
                         onPressed: () {
                           setState(() {
@@ -144,73 +152,85 @@ class _SigninState extends State<Signin> {
                 child: FlatButton(
                   color: Colors.blue,
                   onPressed: () async {
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-
-                    setState(() {
-                      isLoading = true;
-                    });
-
-                    try {
-                      UserCredential user = await FirebaseAuth.instance
-                          .signInWithEmailAndPassword(
-                        email: _emailController.text,
-                        password: _passwordController.text,
-                      );
-
-                      if (user != null) {
-                        DocumentReference users = FirebaseFirestore.instance
-                            .collection('users')
-                            .doc(user.user.uid);
-
-                        users.get().then((snapshot) async {
-                          // Store data in shared preferences
-
-                          await prefs.setString(
-                            'studentName',
-                            snapshot['firstName'] + ' ' + snapshot['lastName'],
-                          );
-                          await prefs.setString(
-                            'studentEmail',
-                            snapshot['email'],
-                          );
-                          await prefs.setString(
-                            'studentPhone',
-                            snapshot['phone'],
-                          );
-                          await prefs.setString(
-                            'studentDepartment',
-                            snapshot['department'],
-                          );
-                          await prefs.setString(
-                            'studentLevel',
-                            snapshot['level'],
-                          );
-
-                          // Navigate to dashboard after storin the data in shared preferences
-
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                            builder: (context) {
-                              return HomeScreen();
-                            },
-                          ), (Route<dynamic> route) => false);
-                        });
-                      }
-                    } catch (e) {
-                      Toast.show(
-                        '$e',
-                        context,
-                        duration: Toast.LENGTH_LONG,
-                        gravity: Toast.BOTTOM,
-                      );
-                      print(e);
+                    if (_emailController.text.isEmpty) {
                       setState(() {
-                        isLoading = false;
+                        _emailValidate = true;
                       });
-                      _showDialog(context);
-                      _emailController.text = '';
-                      _passwordController.text = '';
+                    } else if (_passwordController.text.isEmpty) {
+                      setState(() {
+                        _passwordValidate = true;
+                      });
+                    } else {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+
+                      setState(() {
+                        isLoading = true;
+                      });
+
+                      try {
+                        UserCredential user = await FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                        );
+
+                        if (user != null) {
+                          DocumentReference users = FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(user.user.uid);
+
+                          users.get().then((snapshot) async {
+                            // Store data in shared preferences
+
+                            await prefs.setString(
+                              'studentName',
+                              snapshot['firstName'] +
+                                  ' ' +
+                                  snapshot['lastName'],
+                            );
+                            await prefs.setString(
+                              'studentEmail',
+                              snapshot['email'],
+                            );
+                            await prefs.setString(
+                              'studentPhone',
+                              snapshot['phone'],
+                            );
+                            await prefs.setString(
+                              'studentDepartment',
+                              snapshot['department'],
+                            );
+                            await prefs.setString(
+                              'studentLevel',
+                              snapshot['level'],
+                            );
+
+                            // Navigate to dashboard after storin the data in shared preferences
+
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                              builder: (context) {
+                                return HomeScreen();
+                              },
+                            ), (Route<dynamic> route) => false);
+                          });
+                        }
+                      } catch (e) {
+                        Toast.show(
+                          '$e',
+                          context,
+                          duration: Toast.LENGTH_LONG,
+                          gravity: Toast.BOTTOM,
+                        );
+                        print(e);
+                        setState(() {
+                          isLoading = false;
+                        });
+                        _showDialog(context);
+                        _emailController.text = '';
+                        _passwordController.text = '';
+                      }
                     }
                   },
                   child: isLoading
