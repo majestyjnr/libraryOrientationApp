@@ -5,6 +5,9 @@ export 'student/profile/ChangePassword.dart';
 export 'student/faqs/Faqs.dart';
 export 'student/faqs/AskQuestion.dart';
 
+// Drawer
+export 'student/drawer/AboutApp.dart';
+
 // Videos
 export 'student/videoTabs/AquisitionAndCSection.dart';
 export 'student/videoTabs/CirculationSection.dart';

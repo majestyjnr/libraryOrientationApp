@@ -31,9 +31,9 @@ class _HomeState extends State<Home> {
                 ),
               ),
               ListTile(
-                title: Text('About The App'),
+                title: Text('About App'),
                 leading: Icon(
-                  CupertinoIcons.news,
+                  CupertinoIcons.app_badge,
                   color: Colors.red,
                 ),
                 onTap: () {
@@ -46,10 +46,25 @@ class _HomeState extends State<Home> {
                 height: 0,
               ),
               ListTile(
-                title: Text('About The Developers'),
+                title: Text('Rate App'),
                 leading: Icon(
-                  CupertinoIcons.news,
-                  color: Colors.red,
+                  CupertinoIcons.star_fill,
+                  color: Colors.yellow,
+                ),
+                onTap: () {
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  //   return AboutMethodist();
+                  // }));
+                },
+              ),
+              Divider(
+                height: 0,
+              ),
+              ListTile(
+                title: Text('Share App'),
+                leading: Icon(
+                  CupertinoIcons.share,
+                  color: Colors.blue,
                 ),
                 onTap: () {
                   // Navigator.push(context, MaterialPageRoute(builder: (context) {
