@@ -15,6 +15,7 @@ class ChangeEmail extends StatefulWidget {
 
 class _ChangeEmailState extends State<ChangeEmail> {
   bool isLoading = false;
+  bool _emailValidate = false;
   TextEditingController _emailNew = new TextEditingController();
 
   @override
@@ -53,6 +54,13 @@ class _ChangeEmailState extends State<ChangeEmail> {
                 child: TextField(
                   keyboardType: TextInputType.text,
                   controller: _emailNew,
+                  onChanged: (value) {
+                    if (value.isNotEmpty) {
+                      setState(() {
+                        _emailValidate = false;
+                      });
+                    }
+                  },
                   inputFormatters: [
                     FilteringTextInputFormatter.deny(
                       RegExp('[ ]'),
@@ -70,6 +78,8 @@ class _ChangeEmailState extends State<ChangeEmail> {
                       ),
                     ),
                     labelText: 'Enter New Email',
+                    errorText:
+                        _emailValidate ? 'Email field cannot be empty' : null,
                     prefixIcon: Icon(Icons.security),
                   ),
                 ),
@@ -86,6 +96,11 @@ class _ChangeEmailState extends State<ChangeEmail> {
                 child: FlatButton(
                   color: Colors.blue,
                   onPressed: () async {
+                    if (_emailNew.text.isEmpty) {
+                      setState(() {
+                        _emailValidate = true;
+                      });
+                    } else {}
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
                     setState(
