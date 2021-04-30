@@ -30,7 +30,6 @@ class _AcquisitionSectionState extends State<AcquisitionSection> {
         });
         flickManager = FlickManager(
           autoPlay: false,
-          autoInitialize: false,
           videoPlayerController: VideoPlayerController.network('$_videoURL'),
         );
       });
@@ -53,7 +52,6 @@ class _AcquisitionSectionState extends State<AcquisitionSection> {
           (_videoURL != null)
               ? Container(
                   child: FlickVideoPlayer(
-                    
                     flickManager: flickManager,
                     flickVideoWithControls: FlickVideoWithControls(
                       controls: FlickPortraitControls(),
@@ -71,7 +69,7 @@ class _AcquisitionSectionState extends State<AcquisitionSection> {
                   ),
                 ),
           SizedBox(
-            height: 10,
+            height: 20,
           ),
           Divider(
             height: 0,

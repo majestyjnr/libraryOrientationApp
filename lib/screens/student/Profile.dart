@@ -15,7 +15,6 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   String _studentName = '';
   String _studentEmail = '';
-  String _studentPhone = '';
   String _studentDepartment = '';
   String _studentLevel = '';
 
@@ -30,7 +29,6 @@ class _ProfileState extends State<Profile> {
     setState(() {
       _studentName = prefs.getString("studentName");
       _studentEmail = prefs.getString("studentEmail");
-      _studentPhone = prefs.getString("studentPhone");
       _studentDepartment = prefs.getString("studentDepartment");
       _studentLevel = prefs.getString("studentLevel");
     });
@@ -121,7 +119,10 @@ class _ProfileState extends State<Profile> {
                         ? Text(_studentName)
                         : Text('Loading...'),
                     subtitle: (_studentName != null)
-                        ? Text(_studentEmail)
+                        ? Text(
+                            _studentEmail,
+                            style: TextStyle(color: Colors.blue),
+                          )
                         : Text('Loading...'),
                     trailing: CircleAvatar(
                       backgroundColor: Colors.grey,
@@ -144,14 +145,20 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         Text('Department:'),
                         Spacer(),
-                        Text(_studentDepartment)
+                        Text(
+                          _studentDepartment,
+                          style: TextStyle(color: Colors.blue),
+                        ),
                       ],
                     ),
                     subtitle: Row(
                       children: <Widget>[
                         Text('Level:'),
                         Spacer(),
-                        Text(_studentLevel),
+                        Text(
+                          _studentLevel,
+                          style: TextStyle(color: Colors.blue),
+                        ),
                       ],
                     ),
                   ),

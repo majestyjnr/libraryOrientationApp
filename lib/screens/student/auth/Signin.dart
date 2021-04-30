@@ -245,7 +245,7 @@ class _SigninState extends State<Signin> {
                             return SweetAlert.show(
                               context,
                               title: 'Error!',
-                              subtitle: 'No/Slow internet connection',
+                              subtitle: 'No or Slow internet connection',
                               style: SweetAlertStyle.error,
                             );
                             break;
