@@ -1,6 +1,7 @@
 import 'package:LibraryOrientationApp/screens/screens.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -35,7 +36,7 @@ class _HomeState extends State<Home> {
               ListTile(
                 title: Text('About App'),
                 leading: Icon(
-                  CupertinoIcons.app_badge,
+                  CupertinoIcons.news,
                   color: Colors.red,
                 ),
                 onTap: () {
@@ -55,8 +56,8 @@ class _HomeState extends State<Home> {
               ListTile(
                 title: Text('Rate App'),
                 leading: Icon(
-                  CupertinoIcons.star_fill,
-                  color: Colors.yellow,
+                  FontAwesomeIcons.star,
+                  color: Colors.green,
                 ),
                 onTap: () {
                   _rateApp();
