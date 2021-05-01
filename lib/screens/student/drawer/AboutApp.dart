@@ -70,7 +70,10 @@ class AboutApp extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: SelectableText('With this app, students can: '),
+              child: SelectableText(
+                'With this app, students can: ',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -83,11 +86,8 @@ class AboutApp extends StatelessWidget {
               child: SelectableText(
                   '* Watch Orientation videos from different sections of the library'),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                height: 10,
-              ),
+            SizedBox(
+              height: 10,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
