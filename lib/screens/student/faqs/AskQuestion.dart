@@ -10,6 +10,23 @@ class AskQuestion extends StatefulWidget {
 }
 
 class _AskQuestionState extends State<AskQuestion> {
+  String _studentName = '';
+  String _studentEmail = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserDetails();
+  }
+
+  _getUserDetails() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _studentName = prefs.getString("studentName");
+      _studentEmail = prefs.getString("studentEmail");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
