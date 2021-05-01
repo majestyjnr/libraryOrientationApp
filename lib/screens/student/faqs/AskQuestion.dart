@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:papercups_flutter/papercups_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AskQuestion extends StatefulWidget {
   AskQuestion({Key key}) : super(key: key);
@@ -67,8 +68,9 @@ class _AskQuestionState extends State<AskQuestion> {
           title: 'Kindly leave us a message',
           subtitle: "We'll send you a reply via your email",
           customer: CustomerMetadata(
-              email: 'developermajesty@gmail.com',
-              name: 'Solomon Aidoo Junior'),
+            email: '$_studentEmail',
+            name: '$_studentName',
+          ),
         ),
       ),
     );
