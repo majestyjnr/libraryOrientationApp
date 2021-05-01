@@ -29,6 +29,7 @@ class AboutApp extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Center(
               child: Padding(
@@ -43,7 +44,10 @@ class AboutApp extends StatelessWidget {
             Center(
               child: Text(
                 'Library Orientation App',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 23,
+                ),
               ),
             ),
             Center(
@@ -55,23 +59,48 @@ class AboutApp extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-            SelectableText(
-              'This is the official Library Orientaion App of UEW. It enables freshers go through library orientation with ease and to prevent overcrowding at the entrance of the library during orientation. ',
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SelectableText(
+                'This is the official Library Orientaion App of UEW. It enables freshers go through library orientation with ease and to prevent overcrowding at the entrance of the library during orientation. ',
+              ),
             ),
-            SelectableText('With this app, students can: '),
             SizedBox(
-              height: 5,
+              height: 25,
             ),
-            SelectableText(
-                '* Watch Orientation videos from different sections of the library'),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SelectableText('With this app, students can: '),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: 10,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SelectableText(
+                  '* Watch Orientation videos from different sections of the library'),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: 10,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SelectableText('* View Frequently ask Questions'),
+            ),
             SizedBox(
-              height: 5,
+              height: 10,
             ),
-            SelectableText('* View Frequently ask Questions'),
-            SizedBox(
-              height: 5,
-            ),
-            SelectableText('* Ask questions and get and also receive feedback.')
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SelectableText(
+                  '* Ask questions and get and also receive feedback.'),
+            )
           ],
         ),
       ),
