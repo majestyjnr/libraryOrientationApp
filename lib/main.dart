@@ -41,6 +41,9 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MainAuth(),
+      routes: {
+        '/AskQuestion': (context) => AskQuestion(),
+      },
       // HomeScreen(title: 'Library App',)
     );
   }
@@ -71,6 +74,9 @@ class MyNextApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: HomeScreen(),
+      routes: {
+        '/AskQuestion': (context) => AskQuestion(),
+      },
       // HomeScreen(title: 'Library App',)
     );
   }

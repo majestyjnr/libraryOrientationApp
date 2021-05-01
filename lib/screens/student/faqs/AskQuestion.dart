@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:papercups_flutter/papercups_flutter.dart';
@@ -65,11 +67,12 @@ class _AskQuestionState extends State<AskQuestion> {
         props: Props(
           accountId: "d742419b-0722-40e3-9187-772d4a806824",
           companyName: 'Library App - Admin',
-          title: 'Kindly leave us a message',
+          title: "Kindly leave us a message",
           subtitle: "We'll send you a reply via your email",
+          greeting: "Hi $_studentEmail,",
           customer: CustomerMetadata(
-            email: '$_studentEmail',
-            name: '$_studentName',
+            email: "$_studentEmail",
+            name: "${_studentName.toString()}",
           ),
         ),
       ),

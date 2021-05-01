@@ -199,6 +199,10 @@ class _SigninState extends State<Signin> {
 
                           users.get().then((snapshot) async {
                             // Store data in shared preferences
+                            await prefs.setString(
+                              'studentID',
+                              user.user.uid,
+                            );
 
                             await prefs.setString(
                               'studentName',
