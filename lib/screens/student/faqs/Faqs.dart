@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expansion_card/expansion_card.dart';
 import 'package:flutter/material.dart';
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FAQS extends StatefulWidget {
   FAQS({Key key}) : super(key: key);
@@ -12,7 +13,22 @@ class FAQS extends StatefulWidget {
 }
 
 class _FAQSState extends State<FAQS> {
-  // List<Faq> _question = generateQuestion(15);
+  String _studentName = '';
+  String _studentEmail = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserDetails();
+  }
+
+  _getUserDetails() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _studentName = prefs.getString("studentName");
+      _studentEmail = prefs.getString("studentEmail");
+    });
+  }
 
   CollectionReference faqs = FirebaseFirestore.instance.collection('FAQs');
 
@@ -31,9 +47,10 @@ class _FAQSState extends State<FAQS> {
         actions: <Widget>[
           FlatButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return AskQuestion();
-                }));
+                // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                //   return AskQuestion();
+                // }));
+                askQuestion(_studentName, _studentEmail);
               },
               child: Text('Ask A Question'))
         ],

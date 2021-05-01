@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:sweetalert/sweetalert.dart';
-import 'package:toast/toast.dart';
 
 class ForgotPassword extends StatefulWidget {
   ForgotPassword({Key key}) : super(key: key);
@@ -134,7 +133,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               subtitle: 'Invalid email provided',
                               style: SweetAlertStyle.error,
                             );
-                            ;
                             break;
                           case 'invalid-email':
                             return SweetAlert.show(

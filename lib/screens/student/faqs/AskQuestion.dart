@@ -16,6 +16,9 @@ class _AskQuestionState extends State<AskQuestion> {
   String _studentName = '';
   String _studentEmail = '';
 
+  String studentName;
+  String studentEmail;
+
   @override
   void initState() {
     super.initState();
@@ -32,6 +35,9 @@ class _AskQuestionState extends State<AskQuestion> {
 
   @override
   Widget build(BuildContext context) {
+    final Map arguments = ModalRoute.of(context).settings.arguments as Map;
+    studentName = arguments['studentName'];
+    studentEmail = arguments['studentEmail'];
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -69,10 +75,10 @@ class _AskQuestionState extends State<AskQuestion> {
           companyName: 'Library App - Admin',
           title: "Kindly leave us a message",
           subtitle: "We'll send you a reply via your email",
-          greeting: "Hi $_studentEmail,",
+          greeting: "Hi $studentName,",
           customer: CustomerMetadata(
-            email: "$_studentEmail",
-            name: "${_studentName.toString()}",
+            email: "$studentEmail",
+            name: "$studentName",
           ),
         ),
       ),
