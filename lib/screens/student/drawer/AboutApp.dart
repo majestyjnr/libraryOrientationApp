@@ -50,8 +50,22 @@ class AboutApp extends StatelessWidget {
               height: 30,
             ),
             SelectableText(
-              'This is the official Library Orientaion App of UEW',
+              'This is the official Library Orientaion App of UEW. It enables freshers go through library orientation with ease and to prevent overcrowding at the entrance of the library during orientation. ',
             ),
+            SelectableText('With this app students can: '),
+            SizedBox(
+              height: 5,
+            ),
+            SelectableText(
+                '* Watch Orientation videos from different sections of the library'),
+            SizedBox(
+              height: 5,
+            ),
+            SelectableText('* View Frequently ask Questions'),
+            SizedBox(
+              height: 5,
+            ),
+            SelectableText('*Ask questions and get and also receive feedback.')
           ],
         ),
       ),
