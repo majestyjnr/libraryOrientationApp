@@ -46,6 +46,12 @@ class AboutApp extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
+            Center(
+              child: Text(
+                'Build Version: 1.0.0',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
             SizedBox(
               height: 30,
             ),
