@@ -76,12 +76,15 @@ class _SecuritySectionState extends State<SecuritySection> {
             height: 20,
           ),
           (_videoDescription != null)
-              ? Text(
-                  _videoDescription,
-                  style: TextStyle(
-                    fontSize: 18,
+              ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                    _videoDescription,
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
                   ),
-                )
+              )
               : Container(),
         ],
       ),
