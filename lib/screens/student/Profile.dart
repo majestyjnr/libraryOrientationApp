@@ -168,56 +168,56 @@ class _ProfileState extends State<Profile> {
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Material(
-                        child: InkWell(
-                          child: Container(
-                            width: 160,
-                            height: 150,
-                            decoration: BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15),
-                              ),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(
-                                  CupertinoIcons.mail,
-                                  size: 45,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  'Change Email',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return ChangeEmail();
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(8.0),
+                    //   child: Material(
+                    //     child: InkWell(
+                    //       child: Container(
+                    //         width: 160,
+                    //         height: 150,
+                    //         decoration: BoxDecoration(
+                    //           color: Colors.blue,
+                    //           borderRadius: BorderRadius.all(
+                    //             Radius.circular(15),
+                    //           ),
+                    //         ),
+                    //         child: Column(
+                    //           mainAxisAlignment: MainAxisAlignment.center,
+                    //           children: <Widget>[
+                    //             Icon(
+                    //               CupertinoIcons.mail,
+                    //               size: 45,
+                    //               color: Colors.white,
+                    //             ),
+                    //             SizedBox(
+                    //               height: 5,
+                    //             ),
+                    //             Text(
+                    //               'Change Email',
+                    //               style: TextStyle(
+                    //                 color: Colors.white,
+                    //                 fontWeight: FontWeight.bold,
+                    //                 fontSize: 18,
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //       onTap: () {
+                    //         Navigator.push(
+                    //           context,
+                    //           MaterialPageRoute(
+                    //             builder: (context) {
+                    //               return ChangeEmail();
+                    //             },
+                    //           ),
+                    //         );
+                    //       },
+                    //     ),
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Material(
