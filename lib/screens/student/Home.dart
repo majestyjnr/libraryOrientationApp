@@ -74,7 +74,7 @@ class _HomeState extends State<Home> {
                 ),
                 onTap: () {
                   Share.share(
-                      'Download the Official UEW Library Orientation App from here:  https://developer-majesty.herokuapp.com',
+                      'Download the Official UEW Library Orientation App from here:  https://play.google.com',
                       subject:
                           'Download the Official UEW Library Orientation App from here');
                 },
