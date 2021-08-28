@@ -249,7 +249,12 @@ class _SigninState extends State<Signin> {
                             );
                             break;
                           case 'wrong-password':
-                            return _showDialog(context);
+                            return SweetAlert.show(
+                              context,
+                              title: 'Error!',
+                              subtitle: 'Wrong password provided',
+                              style: SweetAlertStyle.error,
+                            );
                             break;
                           case 'invalid-email':
                             return SweetAlert.show(
