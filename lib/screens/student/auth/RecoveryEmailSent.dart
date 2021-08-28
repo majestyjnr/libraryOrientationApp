@@ -42,8 +42,8 @@ class _RecoveryEmailSentState extends State<RecoveryEmailSent> {
           children: <Widget>[
             Icon(
               CupertinoIcons.check_mark_circled,
-              size: 50,
-              color: Colors.blue,
+              size: 100,
+              color: Colors.green,
             ),
             SizedBox(
               height: 20,
