@@ -103,7 +103,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       try {
                         await FirebaseAuth.instance
                             .sendPasswordResetEmail(
-                                email: _emailController.text)
+                              email: _emailController.text,
+                            )
                             .then(
                               (value) => Navigator.of(context)
                                   .pushAndRemoveUntil(MaterialPageRoute(

@@ -22,7 +22,11 @@ class _RecoveryEmailSentState extends State<RecoveryEmailSent> {
               color: Colors.blue,
             ),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                builder: (context) {
+                  return MainAuth();
+                },
+              ), (Route<dynamic> route) => false);
             }),
         brightness: Brightness.light,
         backgroundColor: Colors.white,
@@ -32,17 +36,17 @@ class _RecoveryEmailSentState extends State<RecoveryEmailSent> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(15),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Icon(
               CupertinoIcons.check_mark_circled,
-              size: 45,
-              color: Colors.white,
+              size: 50,
+              color: Colors.blue,
             ),
             SizedBox(
-              height: 10,
+              height: 20,
             ),
             Text(
               'Email Sent. Kindly check your inbox and reset your password',
@@ -52,7 +56,7 @@ class _RecoveryEmailSentState extends State<RecoveryEmailSent> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 35,
             ),
             SizedBox(
               width: double.infinity,
