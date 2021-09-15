@@ -13,7 +13,7 @@ class FaqAcquistion extends StatefulWidget {
 class _FaqAcquistionState extends State<FaqAcquistion> {
   Query faqs = FirebaseFirestore.instance
       .collection('FAQs')
-      .where('section', isEqualTo: 'Acquistion Section');
+      .where('section', isEqualTo: 'Acquisition Section');
 
   @override
   Widget build(BuildContext context) {

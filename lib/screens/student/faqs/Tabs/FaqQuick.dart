@@ -13,7 +13,7 @@ class FaqQuick extends StatefulWidget {
 class _FaqQuickState extends State<FaqQuick> {
   Query faqs = FirebaseFirestore.instance
       .collection('FAQs')
-      .where('section', isEqualTo: 'Quick Section');
+      .where('section', isEqualTo: 'Quick Reference Section');
   @override
   Widget build(BuildContext context) {
     return Scaffold(

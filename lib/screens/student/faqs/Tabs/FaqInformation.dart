@@ -13,7 +13,7 @@ class FaqInformation extends StatefulWidget {
 class _FaqInformationState extends State<FaqInformation> {
   Query faqs = FirebaseFirestore.instance
       .collection('FAQs')
-      .where('section', isEqualTo: 'Information Section');
+      .where('section', isEqualTo: 'Information Help Desk Section');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
