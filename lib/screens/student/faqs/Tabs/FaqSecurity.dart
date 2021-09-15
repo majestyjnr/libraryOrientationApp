@@ -11,7 +11,7 @@ class FaqSecurity extends StatefulWidget {
 }
 
 class _FaqSecurityState extends State<FaqSecurity> {
-  CollectionReference faqs = FirebaseFirestore.instance
+  Query faqs = FirebaseFirestore.instance
       .collection('FAQs')
       .where('section', isEqualTo: 'Security Section');
   @override

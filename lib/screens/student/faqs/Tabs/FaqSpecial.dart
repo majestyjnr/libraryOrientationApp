@@ -11,7 +11,7 @@ class FaqSpecial extends StatefulWidget {
 }
 
 class _FaqSpecialState extends State<FaqSpecial> {
-  CollectionReference faqs = FirebaseFirestore.instance
+  Query faqs = FirebaseFirestore.instance
       .collection('FAQs')
       .where('section', isEqualTo: 'Special Section');
   @override

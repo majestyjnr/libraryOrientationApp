@@ -11,7 +11,7 @@ class FaqLending extends StatefulWidget {
 }
 
 class _FaqLendingState extends State<FaqLending> {
-  CollectionReference faqs = FirebaseFirestore.instance.collection('FAQs').where('section', isEqualTo: 'Lending Section');
+  Query faqs = FirebaseFirestore.instance.collection('FAQs').where('section', isEqualTo: 'Lending Section');
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

@@ -11,7 +11,7 @@ class FaqCirculation extends StatefulWidget {
 }
 
 class _FaqCirculationState extends State<FaqCirculation> {
-  CollectionReference faqs = FirebaseFirestore.instance
+  Query faqs = FirebaseFirestore.instance
       .collection('FAQs')
       .where('section', isEqualTo: 'Circulation Section');
 

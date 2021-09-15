@@ -23,7 +23,7 @@ class _FaqHomeState extends State<FaqHome> {
               SliverAppBar(
                 brightness: Brightness.light,
                 title: Text(
-                  'Library Orientation App',
+                  "FAQ's",
                   style: TextStyle(
                     color: Colors.blue,
                     fontSize: 20,
