@@ -11,11 +11,14 @@ class FaqLending extends StatefulWidget {
 }
 
 class _FaqLendingState extends State<FaqLending> {
-  Query faqs = FirebaseFirestore.instance.collection('FAQs').where('section', isEqualTo: 'Lending Section');
+  Query faqs = FirebaseFirestore.instance
+      .collection('FAQs')
+      .where('section', isEqualTo: 'Lending Section');
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-       child:  StreamBuilder(
+    return Scaffold(
+      backgroundColor: Colors.blue[700],
+      body: StreamBuilder(
         stream: faqs.snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {

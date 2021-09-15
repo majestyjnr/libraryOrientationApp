@@ -11,11 +11,14 @@ class FaqQuick extends StatefulWidget {
 }
 
 class _FaqQuickState extends State<FaqQuick> {
-  Query faqs = FirebaseFirestore.instance.collection('FAQs').where('section', isEqualTo: 'Quick Section');
+  Query faqs = FirebaseFirestore.instance
+      .collection('FAQs')
+      .where('section', isEqualTo: 'Quick Section');
   @override
   Widget build(BuildContext context) {
-   return SingleChildScrollView(
-       child:  StreamBuilder(
+    return Scaffold(
+      backgroundColor: Colors.blue[700],
+      body: StreamBuilder(
         stream: faqs.snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {

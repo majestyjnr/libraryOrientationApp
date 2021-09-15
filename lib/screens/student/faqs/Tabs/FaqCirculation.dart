@@ -17,8 +17,9 @@ class _FaqCirculationState extends State<FaqCirculation> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: StreamBuilder(
+    return Scaffold(
+      backgroundColor: Colors.blue[700],
+      body: StreamBuilder(
         stream: faqs.snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {

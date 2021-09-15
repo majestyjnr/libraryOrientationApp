@@ -16,8 +16,9 @@ class _FaqSecurityState extends State<FaqSecurity> {
       .where('section', isEqualTo: 'Security Section');
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: StreamBuilder(
+    return Scaffold(
+      backgroundColor: Colors.blue[700],
+      body: StreamBuilder(
         stream: faqs.snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {

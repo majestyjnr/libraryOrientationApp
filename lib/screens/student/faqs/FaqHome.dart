@@ -17,6 +17,7 @@ class _FaqHomeState extends State<FaqHome> {
       initialIndex: 0,
       length: 8,
       child: Scaffold(
+        backgroundColor: Colors.blue[700],
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
@@ -34,7 +35,7 @@ class _FaqHomeState extends State<FaqHome> {
                       onPressed: () {
                         _ask();
                       },
-                      child: Text('Ask A Question'))
+                      child: Text('Ask A Question'),)
                 ],
                 pinned: true,
                 floating: true,
