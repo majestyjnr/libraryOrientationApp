@@ -28,6 +28,8 @@ export 'student/faqs/Tabs/FaqQuick.dart';
 export 'student/faqs/Tabs/FaqReference.dart';
 export 'student/faqs/Tabs/FaqSecurity.dart';
 export 'student/faqs/Tabs/FaqSpecial.dart';
+export 'student/faqs/FaqHome.dart';
+
 
 
 // Auth

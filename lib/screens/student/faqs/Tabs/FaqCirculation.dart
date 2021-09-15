@@ -11,13 +11,14 @@ class FaqCirculation extends StatefulWidget {
 }
 
 class _FaqCirculationState extends State<FaqCirculation> {
-
-  CollectionReference faqs = FirebaseFirestore.instance.collection('FAQs').where('section', isEqualTo: 'Circulation Section');
+  CollectionReference faqs = FirebaseFirestore.instance
+      .collection('FAQs')
+      .where('section', isEqualTo: 'Circulation Section');
 
   @override
   Widget build(BuildContext context) {
-        return SingleChildScrollView(
-       child:  StreamBuilder(
+    return SingleChildScrollView(
+      child: StreamBuilder(
         stream: faqs.snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {

@@ -88,7 +88,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomescreenState extends State<HomeScreen> {
   int _currentIndex = 0;
-  var _pages = [Home(), FAQS(), Profile()];
+  var _pages = [Home(), FaqHome(), Profile()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
