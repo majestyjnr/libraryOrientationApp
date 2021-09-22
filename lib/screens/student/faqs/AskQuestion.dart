@@ -33,29 +33,53 @@ class _AskQuestionState extends State<AskQuestion> {
     });
   }
 
+  _buildMessage() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8.0),
+      height: 70,
+      color: Colors.white,
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              textCapitalization: TextCapitalization.sentences,
+              decoration: InputDecoration.collapsed(hintText: 'Type question'),
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.send),
+            iconSize: 25,
+            color: Colors.blue,
+            onPressed: () {},
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
     studentName = arguments['studentName'];
     studentEmail = arguments['studentEmail'];
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.blue,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.5,
+        backgroundColor: Colors.blue,
+        elevation: 0.0,
         leading: IconButton(
           icon: Icon(
             CupertinoIcons.back,
-            color: Colors.blue,
+            color: Colors.white,
           ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         title: Text(
-          'Ask A Question',
+          'Library Admin',
           style: TextStyle(
-            color: Colors.blue,
+            color: Colors.white,
           ),
         ),
         actions: [
@@ -63,23 +87,41 @@ class _AskQuestionState extends State<AskQuestion> {
             padding: const EdgeInsets.all(8.0),
             child: Icon(
               Icons.account_circle,
-              color: Colors.blue,
+              color: Colors.white,
               size: 37,
             ),
           ),
         ],
       ),
-      body: PaperCupsWidget(
-        props: Props(
-          accountId: "5263542c-c8f2-40f0-a219-193e1ac484f7",
-          companyName: 'Library App - Admin',
-          title: "Kindly leave us a message",
-          subtitle: "We'll send you a reply via your email",
-          greeting: "Hi $studentName,",
-          customer: CustomerMetadata(
-            email: "$studentEmail",
-            name: "$studentName",
-          ),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30)),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                  child: ListView.builder(
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return;
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
