@@ -36,14 +36,17 @@ class _AskQuestionState extends State<AskQuestion> {
   _buildMessage() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8.0),
-      height: 70,
-      color: Colors.grey[300],
+      height: 60,
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+      ),
       child: Row(
         children: [
           Expanded(
             child: TextField(
               textCapitalization: TextCapitalization.sentences,
-              decoration: InputDecoration.collapsed(hintText: 'Type your question'),
+              decoration:
+                  InputDecoration.collapsed(hintText: 'Type your question'),
             ),
           ),
           IconButton(
@@ -76,6 +79,7 @@ class _AskQuestionState extends State<AskQuestion> {
             Navigator.pop(context);
           },
         ),
+        centerTitle: true,
         title: Text(
           'Library Admin',
           style: TextStyle(
@@ -104,8 +108,9 @@ class _AskQuestionState extends State<AskQuestion> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30)),
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(
