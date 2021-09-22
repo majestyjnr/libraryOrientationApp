@@ -37,6 +37,7 @@ dependencies:
   sweetalert:
   url_launcher:
   share:
+  random_string:
   # cloud_firestore: ^0.16.0+1
   # ^0.5.20
 

@@ -131,7 +131,7 @@ class _HomescreenState extends State<HomeScreen> {
                 top: 3,
               ),
               child: Text(
-                "Faq's",
+                "FAQ's",
                 style: TextStyle(
                   fontSize: 13,
                 ),

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sweetalert/sweetalert.dart';
 
 class AskQuestion extends StatefulWidget {
   AskQuestion({Key key}) : super(key: key);
@@ -14,21 +15,35 @@ class AskQuestion extends StatefulWidget {
 class _AskQuestionState extends State<AskQuestion> {
   String _studentName = '';
   String _studentEmail = '';
+  String _admin = 'admin';
 
   String studentName;
   String studentEmail;
+  String chatRoomId;
+  String messageId = "";
+  TextEditingController messageTextController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _getUserDetails();
+    _getChatDetails();
   }
 
-  _getUserDetails() async {
+  getChatRoomIdByUsernames(String user, String admin) {
+    if (user.substring(0, 1).codeUnitAt(0) >
+        admin.substring(0, 1).codeUnitAt(0)) {
+      return "$admin\_$user";
+    } else {
+      return "$user\_$admin";
+    }
+  }
+
+  _getChatDetails() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _studentName = prefs.getString("studentName");
       _studentEmail = prefs.getString("studentEmail");
+      chatRoomId = getChatRoomIdByUsernames(_studentEmail, _admin);
     });
   }
 
@@ -44,6 +59,7 @@ class _AskQuestionState extends State<AskQuestion> {
           Expanded(
             child: TextField(
               textCapitalization: TextCapitalization.sentences,
+              controller: messageTextController,
               decoration:
                   InputDecoration.collapsed(hintText: 'Type your question'),
             ),
@@ -52,11 +68,34 @@ class _AskQuestionState extends State<AskQuestion> {
             icon: Icon(Icons.send),
             iconSize: 25,
             color: Colors.blue,
-            onPressed: () {},
+            onPressed: () {
+              // _sendMessage();
+            },
           )
         ],
       ),
     );
+  }
+
+  _sendMessage(bool sendClicked) {
+    if (messageTextController.text == "") {
+      SweetAlert.show(
+        context,
+        title: 'Error!',
+        subtitle: 'Please type a question',
+        style: SweetAlertStyle.error,
+      );
+    } else {
+      String message = messageTextController.text;
+      var lastMessageTimeStamp = DateTime.now();
+
+      Map<String, dynamic> messageInfo = {
+        "message": message,
+        "sentBy": _studentEmail,
+        "timestamp": lastMessageTimeStamp
+      };
+      
+    }
   }
 
   @override
