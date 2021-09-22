@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:random_string/random_string.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sweetalert/sweetalert.dart';
@@ -23,12 +24,14 @@ class _AskQuestionState extends State<AskQuestion> {
   String studentEmail;
   String chatRoomId;
   String messageId = "";
+  Stream messageStream;
   TextEditingController messageTextController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _getChatDetails();
+    getAndSetMessages();
   }
 
   getChatRoomIdByUsernames(String user, String admin) {
@@ -62,6 +65,11 @@ class _AskQuestionState extends State<AskQuestion> {
             child: TextField(
               textCapitalization: TextCapitalization.sentences,
               controller: messageTextController,
+              onChanged: (value) {
+                setState(() {
+                  _sendMessage(false);
+                });
+              },
               decoration:
                   InputDecoration.collapsed(hintText: 'Type your question'),
             ),
@@ -71,7 +79,7 @@ class _AskQuestionState extends State<AskQuestion> {
             iconSize: 25,
             color: Colors.blue,
             onPressed: () {
-              // _sendMessage();
+              _sendMessage(true);
             },
           )
         ],
@@ -108,8 +116,58 @@ class _AskQuestionState extends State<AskQuestion> {
           "lastMessageSentBy": _studentEmail
         };
         DatabaseMethods().updateLastMessageSent(chatRoomId, lastMessageInfoMap);
+
+        if (sendClicked) {
+          setState(() {
+            // remove text from the message input field
+            messageTextController.text = "";
+
+            // clear messageID
+            messageId = "";
+          });
+        }
       });
     }
+  }
+
+  Widget chatTile(String message) {
+    return Container(
+        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+        color: Colors.blue,
+        padding: EdgeInsets.all(16),
+        child: Text(
+          message,
+          style: TextStyle(color: Colors.white),
+        ));
+  }
+
+  Widget chatMessages() {
+    return StreamBuilder(
+      stream: messageStream,
+      builder: (context, snapshot) {
+        return snapshot.hasData
+            ? ListView.builder(
+              padding: EdgeInsets.only(bottom: 70, top: 16),
+                itemCount: snapshot.data.docs.length,
+                reverse: true,
+                itemBuilder: (context, index) {
+                  DocumentSnapshot ds = snapshot.data.docs[index];
+                  return chatTile(ds['message']);
+                },
+              )
+            : Center(
+                child: NutsActivityIndicator(
+                  activeColor: Colors.blue,
+                  radius: 30,
+                ),
+              );
+      },
+    );
+  }
+
+  getAndSetMessages() async {
+    messageStream = await DatabaseMethods().getChatRoomMessages(chatRoomId);
+    setState(() {});
   }
 
   @override
@@ -165,17 +223,11 @@ class _AskQuestionState extends State<AskQuestion> {
                   ),
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                  child: ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return;
-                    },
-                  ),
-                ),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
+                    child: chatMessages()),
               ),
             ),
             _buildMessage(),

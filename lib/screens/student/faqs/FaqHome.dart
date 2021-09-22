@@ -1,3 +1,4 @@
+import 'package:LibraryOrientationApp/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:LibraryOrientationApp/screens/screens.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,6 +13,7 @@ class FaqHome extends StatefulWidget {
 
 class _FaqHomeState extends State<FaqHome> {
   bool innerBoxIsScrolled = true;
+  String admin = 'admin';
   String _studentName = '';
   String _studentEmail = '';
 
@@ -27,6 +29,15 @@ class _FaqHomeState extends State<FaqHome> {
       _studentName = prefs.getString("studentName");
       _studentEmail = prefs.getString("studentEmail");
     });
+  }
+
+  getChatRoomIdByUsernames(String user, String admin) {
+    if (user.substring(0, 1).codeUnitAt(0) >
+        admin.substring(0, 1).codeUnitAt(0)) {
+      return "$admin\_$user";
+    } else {
+      return "$user\_$admin";
+    }
   }
 
   @override
@@ -51,6 +62,13 @@ class _FaqHomeState extends State<FaqHome> {
                 actions: <Widget>[
                   FlatButton(
                     onPressed: () {
+                      var chatRoomId =
+                          getChatRoomIdByUsernames(_studentEmail, admin);
+                      Map<String, dynamic> chatRoomInfoMap = {
+                        'users': [_studentEmail, admin]
+                      };
+                      DatabaseMethods()
+                          .createChatRoom(chatRoomId, chatRoomInfoMap);
                       askQuestion(_studentName, _studentEmail);
                     },
                     child: Text('Ask A Question'),
