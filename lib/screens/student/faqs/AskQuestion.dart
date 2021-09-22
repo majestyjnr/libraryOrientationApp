@@ -37,13 +37,13 @@ class _AskQuestionState extends State<AskQuestion> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8.0),
       height: 70,
-      color: Colors.white,
+      color: Colors.grey[300],
       child: Row(
         children: [
           Expanded(
             child: TextField(
               textCapitalization: TextCapitalization.sentences,
-              decoration: InputDecoration.collapsed(hintText: 'Type question'),
+              decoration: InputDecoration.collapsed(hintText: 'Type your question'),
             ),
           ),
           IconButton(
@@ -121,6 +121,7 @@ class _AskQuestionState extends State<AskQuestion> {
                 ),
               ),
             ),
+            _buildMessage(),
           ],
         ),
       ),
