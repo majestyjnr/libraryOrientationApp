@@ -140,22 +140,26 @@ class _AskQuestionState extends State<AskQuestion> {
           sentByMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(24),
-              bottomRight: sentByMe ? Radius.circular(0) : Radius.circular(24),
-              topRight: Radius.circular(24),
-              bottomLeft: sentByMe ? Radius.circular(24) : Radius.circular(0),
+            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(24),
+                bottomRight:
+                    sentByMe ? Radius.circular(0) : Radius.circular(24),
+                topRight: Radius.circular(24),
+                bottomLeft: sentByMe ? Radius.circular(24) : Radius.circular(0),
+              ),
+              color: Colors.blue,
             ),
-            color: Colors.blue,
-          ),
-          padding: EdgeInsets.all(16),
-          child: Text(
-            message,
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
+            padding: EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Text(
+                  message,
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            )),
       ],
     );
   }
@@ -166,7 +170,7 @@ class _AskQuestionState extends State<AskQuestion> {
       builder: (context, snapshot) {
         return snapshot.hasData
             ? ListView.builder(
-                padding: EdgeInsets.only(bottom: 70, top: 16),
+                padding: EdgeInsets.only(bottom: 40, top: 16),
                 itemCount: snapshot.data.docs.length,
                 reverse: true,
                 itemBuilder: (context, index) {
