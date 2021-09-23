@@ -134,15 +134,20 @@ class _AskQuestionState extends State<AskQuestion> {
     }
   }
 
-  Widget chatTile(String message, bool sentBy) {
+  Widget chatTile(String message, bool sentByMe) {
     return Row(
       mainAxisAlignment:
-          sentBy ? MainAxisAlignment.end : MainAxisAlignment.start,
+          sentByMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Container(
           margin: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(24),
+              bottomRight: sentByMe ? Radius.circular(0) : Radius.circular(24),
+              topRight: Radius.circular(24),
+              bottomLeft: sentByMe ? Radius.circular(24) : Radius.circular(0),
+            ),
             color: Colors.blue,
           ),
           padding: EdgeInsets.all(16),
