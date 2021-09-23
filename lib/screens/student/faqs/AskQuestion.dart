@@ -30,7 +30,11 @@ class _AskQuestionState extends State<AskQuestion> {
   @override
   void initState() {
     super.initState();
-    _getChatDetails();
+    doThisOnLaunch();
+  }
+
+  doThisOnLaunch() async {
+    await _getChatDetails();
     getAndSetMessages();
   }
 
@@ -130,15 +134,25 @@ class _AskQuestionState extends State<AskQuestion> {
     }
   }
 
-  Widget chatTile(String message) {
-    return Container(
-        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-        color: Colors.blue,
-        padding: EdgeInsets.all(16),
-        child: Text(
-          message,
-          style: TextStyle(color: Colors.white),
-        ));
+  Widget chatTile(String message, bool sentBy) {
+    return Row(
+      mainAxisAlignment:
+          sentBy ? MainAxisAlignment.end : MainAxisAlignment.start,
+      children: [
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.blue,
+          ),
+          padding: EdgeInsets.all(16),
+          child: Text(
+            message,
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget chatMessages() {
@@ -147,12 +161,13 @@ class _AskQuestionState extends State<AskQuestion> {
       builder: (context, snapshot) {
         return snapshot.hasData
             ? ListView.builder(
-              padding: EdgeInsets.only(bottom: 70, top: 16),
+                padding: EdgeInsets.only(bottom: 70, top: 16),
                 itemCount: snapshot.data.docs.length,
                 reverse: true,
                 itemBuilder: (context, index) {
                   DocumentSnapshot ds = snapshot.data.docs[index];
-                  return chatTile(ds['message']);
+
+                  return chatTile(ds['message'], _studentEmail == ds['sentBy']);
                 },
               )
             : Center(
@@ -166,8 +181,11 @@ class _AskQuestionState extends State<AskQuestion> {
   }
 
   getAndSetMessages() async {
+    print('My chatRoomId is . $chatRoomId');
+
     messageStream = await DatabaseMethods().getChatRoomMessages(chatRoomId);
     setState(() {});
+    print('My name is Solomon. $messageStream');
   }
 
   @override
@@ -223,11 +241,12 @@ class _AskQuestionState extends State<AskQuestion> {
                   ),
                 ),
                 child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                    ),
-                    child: chatMessages()),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                  child: chatMessages(),
+                ),
               ),
             ),
             _buildMessage(),
