@@ -134,35 +134,32 @@ class _AskQuestionState extends State<AskQuestion> {
     }
   }
 
-  Widget chatTile(String message, bool sentByMe) {
+Widget chatTile(String message, bool sentByMe) {
     return Row(
       mainAxisAlignment:
           sentByMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Container(
-            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(24),
-                bottomRight:
-                    sentByMe ? Radius.circular(0) : Radius.circular(24),
-                topRight: Radius.circular(24),
-                bottomLeft: sentByMe ? Radius.circular(24) : Radius.circular(0),
-              ),
-              color: sentByMe ? Colors.blue : Colors.grey,
+          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(24),
+              bottomRight: sentByMe ? Radius.circular(0) : Radius.circular(24),
+              topRight: Radius.circular(24),
+              bottomLeft: sentByMe ? Radius.circular(24) : Radius.circular(0),
             ),
-            padding: EdgeInsets.all(16),
-            child: Column(
-              children: [
-                Text(
-                  message,
-                  style: TextStyle(color: Colors.white),
-                ),
-              ],
-            )),
+            color: sentByMe ? Colors.blue : Colors.blueGrey[50],
+          ),
+          width: MediaQuery.of(context).size.width * 0.60,
+          padding: EdgeInsets.all(16),
+          child: Text(
+            message,
+            style: TextStyle(color: sentByMe ? Colors.white : Colors.black),
+          ),
+        ),
       ],
     );
-  }
+}
 
   Widget chatMessages() {
     return StreamBuilder(
