@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sweetalert/sweetalert.dart';
 import 'package:toast/toast.dart';
 
@@ -18,6 +19,22 @@ class _ChangePasswordState extends State<ChangePassword> {
   bool isLoading = false;
   TextEditingController _passwordNew = new TextEditingController();
   TextEditingController _passwordConfirm = new TextEditingController();
+  TextEditingController _passwordOld = new TextEditingController();
+
+  String _studentEmail = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserDetails();
+  }
+
+  _getUserDetails() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _studentEmail = prefs.getString("studentEmail");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +66,50 @@ class _ChangePasswordState extends State<ChangePassword> {
             children: [
               SizedBox(
                 height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: TextField(
+                  keyboardType: TextInputType.text,
+                  obscureText: obscured,
+                  controller: _passwordOld,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(
+                      RegExp('[ ]'),
+                    ),
+                  ],
+                  decoration: InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.blue,
+                      ),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.red,
+                      ),
+                    ),
+                    labelText: 'Enter New Password',
+                    prefixIcon: Icon(Icons.security),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          if (obscured) {
+                            obscured = false;
+                          } else {
+                            obscured = true;
+                          }
+                        });
+                      },
+                      icon: Icon(
+                        obscured ? Icons.visibility_off : Icons.visibility,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 15,
               ),
               Padding(
                 padding: const EdgeInsets.all(3.0),
@@ -174,8 +235,12 @@ class _ChangePasswordState extends State<ChangePassword> {
                         style: SweetAlertStyle.error,
                       );
                     } else if (_passwordNew.text == _passwordConfirm.text) {
-                      try {
-                        User userCurrent = FirebaseAuth.instance.currentUser;
+                      User userCurrent = FirebaseAuth.instance.currentUser;
+                      final credential = EmailAuthProvider.credential(
+                          email: _studentEmail, password: _passwordOld.text);
+                      userCurrent
+                          .reauthenticateWithCredential(credential)
+                          .then((value) {
                         userCurrent
                             .updatePassword(_passwordNew.text)
                             .then((value) {
@@ -207,34 +272,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             style: SweetAlertStyle.error,
                           );
                         });
-                      } on FirebaseAuthException catch (e) {
-                        switch (e.code) {
-                          case 'requires-recent-login':
-                            return SweetAlert.show(
-                              context,
-                              title: 'Error!',
-                              subtitle: 'A recent login required',
-                              style: SweetAlertStyle.error,
-                            );
-                            break;
-                          case 'weak-password':
-                            return SweetAlert.show(
-                              context,
-                              title: 'Error!',
-                              subtitle: 'Weak password provided',
-                              style: SweetAlertStyle.error,
-                            );
-                            break;
-                          default:
-                            return SweetAlert.show(
-                              context,
-                              title: 'Error!',
-                              subtitle: 'An error occured',
-                              style: SweetAlertStyle.error,
-                            );
-                            break;
-                        }
-                      }
+                      });
                     } else {
                       setState(
                         () {
