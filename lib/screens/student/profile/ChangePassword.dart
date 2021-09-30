@@ -174,38 +174,67 @@ class _ChangePasswordState extends State<ChangePassword> {
                         style: SweetAlertStyle.error,
                       );
                     } else if (_passwordNew.text == _passwordConfirm.text) {
-                      User userCurrent = FirebaseAuth.instance.currentUser;
-                      userCurrent
-                          .updatePassword(_passwordNew.text)
-                          .then((value) {
-                        SweetAlert.show(context,
-                            title: 'Success!',
-                            subtitle: 'Password changed successfully',
-                            cancelButtonColor: Colors.blue,
-                            // ignore: missing_return
-                            style: SweetAlertStyle.success, onPress: (y) {
-                          Navigator.pop(context);
+                      try {
+                        User userCurrent = FirebaseAuth.instance.currentUser;
+                        userCurrent
+                            .updatePassword(_passwordNew.text)
+                            .then((value) {
+                          SweetAlert.show(context,
+                              title: 'Success!',
+                              subtitle: 'Password changed successfully',
+                              cancelButtonColor: Colors.blue,
+                              // ignore: missing_return
+                              style: SweetAlertStyle.success, onPress: (y) {
+                            Navigator.pop(context);
+                          });
+                          setState(
+                            () {
+                              isLoading = false;
+                            },
+                          );
+                          _passwordNew.text = '';
+                          _passwordConfirm.text = '';
+                        }).catchError(() {
+                          setState(
+                            () {
+                              isLoading = false;
+                            },
+                          );
+                          SweetAlert.show(
+                            context,
+                            title: 'Error!',
+                            subtitle: 'Password changing failed!',
+                            style: SweetAlertStyle.error,
+                          );
                         });
-                        setState(
-                          () {
-                            isLoading = false;
-                          },
-                        );
-                        _passwordNew.text = '';
-                        _passwordConfirm.text = '';
-                      }).catchError(() {
-                        setState(
-                          () {
-                            isLoading = false;
-                          },
-                        );
-                        SweetAlert.show(
-                          context,
-                          title: 'Error!',
-                          subtitle: 'Password changing failed!',
-                          style: SweetAlertStyle.error,
-                        );
-                      });
+                      } on FirebaseAuthException catch (e) {
+                        switch (e.code) {
+                          case 'requires-recent-login':
+                            return SweetAlert.show(
+                              context,
+                              title: 'Error!',
+                              subtitle: 'A recent login required',
+                              style: SweetAlertStyle.error,
+                            );
+                            break;
+                          case 'weak-password':
+                            return SweetAlert.show(
+                              context,
+                              title: 'Error!',
+                              subtitle: 'Weak password provided',
+                              style: SweetAlertStyle.error,
+                            );
+                            break;
+                          default:
+                            return SweetAlert.show(
+                              context,
+                              title: 'Error!',
+                              subtitle: 'An error occured',
+                              style: SweetAlertStyle.error,
+                            );
+                            break;
+                        }
+                      }
                     } else {
                       setState(
                         () {
